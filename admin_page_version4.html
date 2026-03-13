@@ -501,7 +501,7 @@ async function generatePDF(config, saju, form, progressCb, reportId){
   }
 
   await addImgPage(getImg("ENDING"));tick();
-  const fn=`종합사주_${form.name||'보고서'}_${new Date().toISOString().slice(0,10)}.pdf`;
+  const fn=`종합사주 ${form.name||'고객'}님께 드립니다.pdf`;
   pdf.save(fn);return fn;
 }
 
