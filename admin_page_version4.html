@@ -91,6 +91,44 @@ function calcSaju(y,m,d,h,mn){
   };
 }
 
+// ══ 십성(Ten Gods) 판정 ══
+const JIJI_BONGI=[9,5,0,1,4,2,3,5,6,7,4,8]; // 자→계,축→기,인→갑,묘→을,진→무,사→병,오→정,미→기,신→경,유→신,술→무,해→임
+const OH_GENERATES={"목":"화","화":"토","토":"금","금":"수","수":"목"};
+const OH_CONTROLS={"목":"토","토":"수","수":"화","화":"금","금":"목"};
+const OH_CTRL_BY={"토":"목","수":"토","화":"수","금":"화","목":"금"};
+const OH_GEN_BY={"화":"목","토":"화","금":"토","수":"금","목":"수"};
+function getSipsung(dayGanIdx,targetGanIdx){
+  const dOh=OHENG_GAN[dayGanIdx],tOh=OHENG_GAN[targetGanIdx];
+  const sameYY=(dayGanIdx%2)===(targetGanIdx%2);
+  if(dOh===tOh)return sameYY?"비견":"겁재";
+  if(OH_GENERATES[dOh]===tOh)return sameYY?"식신":"상관";
+  if(OH_CONTROLS[dOh]===tOh)return sameYY?"편재":"정재";
+  if(OH_CONTROLS[tOh]===dOh)return sameYY?"편관":"정관";
+  if(OH_GENERATES[tOh]===dOh)return sameYY?"편인":"정인";
+  return"";
+}
+function buildSipsungContext(saju){
+  const dIdx=saju.ilganIdx;
+  const labels=["年","月","日","時"];
+  const pillars=saju.pillars.filter(Boolean);
+  let ganLines=[],jiLines=[];
+  pillars.forEach((p,i)=>{
+    const gIdx=CH_HJ.indexOf(p.stem);
+    if(i!==2){// 일간 자신은 제외
+      ganLines.push(labels[i]+"간 "+p.stemKr+"("+OHENG_GAN[gIdx]+") → "+getSipsung(dIdx,gIdx));
+    }
+    const bIdx=JI_HJ.indexOf(p.branch);
+    const bongiIdx=JIJI_BONGI[bIdx];
+    jiLines.push(labels[i]+"지 "+p.branchKr+"("+OHENG_JI[bIdx]+", 본기:"+CHEONGAN[bongiIdx]+") → "+getSipsung(dIdx,bongiIdx));
+  });
+  const ilganOh=OHENG_GAN[dIdx];
+  const summary="비겁="+ilganOh+", 식상="+OH_GENERATES[ilganOh]+", 재성="+OH_CONTROLS[ilganOh]+", 관성="+OH_CTRL_BY[ilganOh]+", 인성="+OH_GEN_BY[ilganOh];
+  return"【십성 분석 (일간 "+saju.ilgan+" 기준)】\n"+
+    "오행별 십성: "+summary+"\n"+
+    "[천간 십성] "+ganLines.join(" / ")+"\n"+
+    "[지지 십성(본기)] "+jiLines.join(" / ");
+}
+
 // ══ 사주 컬러 ══
 const SAJU_COLORS={"갑":{name:"짙은 녹색",hex:"#2E7D32"},"을":{name:"연한 녹색",hex:"#66BB6A"},"병":{name:"진홍색",hex:"#D32F2F"},"정":{name:"산호색",hex:"#FF7043"},"무":{name:"황금색",hex:"#F9A825"},"기":{name:"연노랑",hex:"#FFD54F"},"경":{name:"은회색",hex:"#9E9E9E"},"신":{name:"밝은 은색",hex:"#B0BEC5"},"임":{name:"깊은 남색",hex:"#1565C0"},"계":{name:"하늘색",hex:"#42A5F5"}};
 // ══ 오행 통일 색상 (PDF + Admin 동일) ══
@@ -747,7 +785,8 @@ function buildSajuContext(saju,form){
   const now=new Date();const nY=now.getFullYear(),nM=now.getMonth()+1,nD=now.getDate();
   const gIdx=((nY-4)%10+10)%10,jIdx=((nY-4)%12+12)%12;
   const todayInfo="오늘 날짜: "+nY+"년 "+nM+"월 "+nD+"일 ("+CHEONGAN[gIdx]+JIJI[jIdx]+"년)";
-  return "【현재 시점】\n"+todayInfo+"\n\n【고객 정보】\n이름: "+(form.name||"고객")+"\n성별: "+gender+"\n생년월일시: "+birth+" ("+(form.calendar==="lunar"?"음력":"양력")+")\n직업/상황: "+(form.situation||"미입력")+"\n결혼: "+form.marriage+" / 연애: "+form.relationship+"\n\n【사주 원국 (진태양시 보정 적용)】\n"+pillarStr+"\n일간(日干): "+saju.day.gan+" ("+saju.ilgan+")\n한자 표기: "+saju.hanja+"\n\n【오행 분포】\n"+ohStr;
+  const sipsungCtx=buildSipsungContext(saju);
+  return "【현재 시점】\n"+todayInfo+"\n\n【고객 정보】\n이름: "+(form.name||"고객")+"\n성별: "+gender+"\n생년월일시: "+birth+" ("+(form.calendar==="lunar"?"음력":"양력")+")\n직업/상황: "+(form.situation||"미입력")+"\n결혼: "+form.marriage+" / 연애: "+form.relationship+"\n\n【사주 원국 (진태양시 보정 적용)】\n"+pillarStr+"\n일간(日干): "+saju.day.gan+" ("+saju.ilgan+")\n한자 표기: "+saju.hanja+"\n\n【오행 분포】\n"+ohStr+"\n\n"+sipsungCtx;
 }
 
 function buildPreviousContentContext(cfg, currentSecIdx, currentSubIdx){
@@ -779,7 +818,8 @@ const DEFAULT_GPT_SYSTEM=`당신은 25년 경력의 전문 사주 상담가입�
 4. 고객의 이름을 자연스럽게 포함.
 5. 긍정과 주의사항을 균형있게 서술.
 6. 다른 소주제와 중복되지 않는 고유한 내용 작성.
-7. 마크다운 서식(**, ##, - 등) 절대 사용 금지. 순수 텍스트만.`;
+7. 마크다운 서식(**, ##, - 등) 절대 사용 금지. 순수 텍스트만.
+8. 【십성 분석】에 명시된 십성 관계를 반드시 따르세요. 재성·식상·관성·인성·비겁을 임의로 판단하지 말고, 제공된 십성 데이터를 그대로 사용하세요. 예: 토 일간이면 재성=수, 식상=금, 관성=목, 인성=화입니다.`;
 
 async function callGPT(apiKey,saju,form,sectionTitle,subTitle,targetChars,isQuestion,secPrompt,subPrompt,systemPrompt,previousContent){
   const ctx=buildSajuContext(saju,form);
