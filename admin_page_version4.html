@@ -537,8 +537,8 @@ async function generatePDF(config, saju, form, progressCb, reportId, brand){
   const tick=()=>{done++;if(progressCb)progressCb(Math.round(done/totalSteps*100));};
   if(isBS){
     await addImgPage(IMG_BS_COVER);tick();
-    await addImgPage(getImg("TOC"));tick();
     await addImgPage(IMG_BS_INTRO);overlayReportIdBottom();tick();
+    await addImgPage(getImg("TOC"));tick();
   }else{
     await addImgPage(getImg("COVER"));tick();
     await addImgPage(getImg("TOC"));tick();
