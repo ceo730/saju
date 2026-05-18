@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>정통명리연구소 · 월간운세 발행 관리</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;700&family=Nanum+Myeongjo:wght@400;700;800&display=swap" rel="stylesheet">
+<script src="calc_saju.js"></script>
+<style>
+  :root {
+    --ink: #1F1F1F; --ink-soft: #2E2E2E; --paper: #FAFAF6;
+    --bg: #F2EFE5; --card: #FFFFFF;
+    --line: #2A2A2A; --rule: #D6D2C7; --rule-soft: #E8E3D5;
+    --accent: #1F3A5F; --accent-deep: #173050; --accent-soft: #EBF0F6;
+    --warn: #6B3A2E; --good: #2E5A3E; --gold: #8C7A3D;
+    --muted: #5C5C5C; --muted-light: #8A8A8A;
+    --font-body: 'Pretendard', 'Noto Sans KR', sans-serif;
+    --font-serif: 'Noto Serif KR', serif;
+    --font-han: 'Nanum Myeongjo', 'Noto Serif KR', serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg); font-family: var(--font-body); color: var(--ink);
+    font-size: 14px; line-height: 1.6; letter-spacing: -0.01em;
+    word-break: keep-all; -webkit-font-smoothing: antialiased;
+  }
+  .top-bar {
+    background: var(--accent); color: white;
+    padding: 14px 28px; display: flex; align-items: center; gap: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .top-bar .han { font-family: var(--font-han); font-size: 18pt; font-weight: 800; letter-spacing: 0.2em; }
+  .top-bar .name { font-family: var(--font-serif); font-size: 16pt; font-weight: 700; flex: 1; }
+  .top-bar .badge {
+    border: 1.5px solid #FFD27F; color: #FFD27F;
+    padding: 4px 12px; font-size: 11pt; font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  .layout {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+    padding: 24px 28px; max-width: 1600px; margin: 0 auto;
+  }
+  .panel {
+    background: var(--card); border: 1px solid var(--rule);
+    padding: 22px 26px; box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  }
+  .panel h2 {
+    font-family: var(--font-serif); font-size: 15pt; font-weight: 700;
+    color: var(--ink); margin-bottom: 4px;
+  }
+  .panel .han { font-family: var(--font-han); font-size: 10pt; color: var(--accent); letter-spacing: 0.2em; }
+  .panel .desc { font-size: 11pt; color: var(--muted); margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--rule-soft); }
+  .section {
+    margin-bottom: 22px; padding-bottom: 20px; border-bottom: 1px dashed var(--rule-soft);
+  }
+  .section:last-of-type { border-bottom: none; }
+  .section-head {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+  }
+  .section-head .num {
+    width: 26px; height: 26px; background: var(--accent); color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-han); font-size: 11pt; font-weight: 700;
+  }
+  .section-head .title {
+    font-family: var(--font-serif); font-size: 13pt; font-weight: 700; color: var(--ink);
+  }
+  .section-head .hint { font-size: 10pt; color: var(--muted); margin-left: auto; }
+
+  .field { margin-bottom: 11px; }
+  .field label {
+    display: block; font-size: 11pt; font-weight: 600;
+    color: var(--ink-soft); margin-bottom: 4px;
+  }
+  .field .req { color: var(--warn); margin-left: 2px; }
+  .field .row { display: flex; gap: 8px; align-items: center; }
+  input[type="text"], input[type="date"], input[type="month"], input[type="number"], select, textarea {
+    width: 100%; padding: 8px 10px; border: 1px solid var(--rule);
+    background: white; font-family: var(--font-body); font-size: 11pt;
+    color: var(--ink); border-radius: 0;
+  }
+  input:focus, select:focus, textarea:focus {
+    outline: none; border-color: var(--accent);
+    box-shadow: 0 0 0 2px var(--accent-soft);
+  }
+  textarea { resize: vertical; min-height: 50px; line-height: 1.5; }
+  .radio-row { display: flex; gap: 14px; padding: 4px 0; }
+  .radio-row label {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 11pt; font-weight: 500; cursor: pointer;
+    color: var(--ink-soft); margin-bottom: 0;
+  }
+  .check-row { display: inline-flex; align-items: center; gap: 6px; font-size: 10pt; color: var(--muted); margin-left: 8px; }
+
+  /* 관심 인물 슬롯 */
+  .person-slot {
+    background: var(--paper); border: 1px solid var(--rule-soft);
+    padding: 14px 16px; margin-bottom: 12px; position: relative;
+  }
+  .person-slot .slot-head {
+    display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;
+  }
+  .person-slot .slot-head .label {
+    font-family: var(--font-han); font-size: 11pt; font-weight: 700;
+    color: var(--accent); letter-spacing: 0.1em;
+  }
+  .person-slot .slot-head .del {
+    background: none; border: 1px solid var(--warn); color: var(--warn);
+    padding: 3px 10px; font-size: 9.5pt; cursor: pointer; font-family: var(--font-body);
+  }
+  .person-slot .slot-head .del:hover { background: var(--warn); color: white; }
+  .add-person-btn {
+    width: 100%; padding: 10px; background: white;
+    border: 1.5px dashed var(--accent); color: var(--accent);
+    font-family: var(--font-body); font-size: 11pt; font-weight: 600;
+    cursor: pointer; transition: background 0.15s;
+  }
+  .add-person-btn:hover { background: var(--accent-soft); }
+  .add-person-btn:disabled { border-color: var(--rule); color: var(--muted-light); cursor: not-allowed; }
+  .price-display {
+    margin-top: 14px; padding: 12px 16px; background: #FFF8E8;
+    border: 1.5px solid var(--gold); display: flex; align-items: baseline; gap: 12px;
+  }
+  .price-display .lab { font-family: var(--font-han); font-size: 10.5pt; color: var(--gold); font-weight: 700; letter-spacing: 0.15em; }
+  .price-display .val { font-family: var(--font-serif); font-size: 18pt; font-weight: 800; color: var(--ink); }
+  .price-display .note { font-size: 9.5pt; color: var(--muted); margin-left: auto; }
+  .relation-hint {
+    margin-top: 6px; padding: 8px 12px; background: var(--accent-soft);
+    border-left: 3px solid var(--accent);
+    font-size: 9.5pt; color: var(--ink-soft); line-height: 1.7;
+  }
+  .relation-hint b { color: var(--accent); }
+
+  /* 액션 버튼 */
+  .actions {
+    display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 10px;
+    margin-top: 20px; padding-top: 18px; border-top: 2px solid var(--rule);
+  }
+  .actions button {
+    padding: 12px; font-family: var(--font-body); font-size: 11.5pt; font-weight: 700;
+    border: none; cursor: pointer; transition: opacity 0.15s;
+  }
+  .actions button:hover { opacity: 0.88; }
+  .btn-primary { background: var(--accent); color: white; }
+  .btn-secondary { background: var(--gold); color: white; }
+  .btn-tertiary { background: white; color: var(--muted); border: 1px solid var(--rule) !important; }
+
+  /* 미리보기 */
+  .preview-card {
+    background: var(--paper); border: 1px solid var(--rule);
+    padding: 18px 22px; margin-bottom: 14px;
+  }
+  .preview-card.self { border: 2px solid var(--accent); background: var(--accent-soft); }
+  .preview-card .pc-head {
+    display: flex; align-items: baseline; gap: 10px; margin-bottom: 12px;
+    padding-bottom: 10px; border-bottom: 1px solid var(--rule-soft);
+  }
+  .preview-card .pc-head .who {
+    font-family: var(--font-serif); font-size: 13pt; font-weight: 700; color: var(--ink);
+  }
+  .preview-card .pc-head .meta { font-size: 10pt; color: var(--muted); }
+  .preview-card .pc-relation {
+    font-size: 9.5pt; color: var(--accent); font-style: italic; margin-top: 2px;
+  }
+  .pillars-row { display: flex; gap: 8px; margin-bottom: 12px; }
+  .pillar-cell {
+    flex: 1; padding: 10px 6px; text-align: center;
+    background: white; border: 1px solid var(--rule);
+  }
+  .pillar-cell .label {
+    font-family: var(--font-han); font-size: 9pt; color: var(--muted); letter-spacing: 0.1em; margin-bottom: 4px;
+  }
+  .pillar-cell .han {
+    font-family: var(--font-han); font-size: 17pt; font-weight: 800;
+    color: var(--ink); line-height: 1.15;
+  }
+  .pillar-cell.day .han { color: var(--accent); }
+  .pillar-cell .kr { font-size: 8.5pt; color: var(--muted); margin-top: 3px; }
+  .pillar-cell .oh { font-size: 8pt; color: var(--gold); margin-top: 1px; letter-spacing: 0.05em; }
+  .ilgan-emphasis {
+    background: var(--accent); color: white;
+    padding: 12px 18px; margin: 10px 0;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .ilgan-emphasis .lab { font-family: var(--font-han); font-size: 10pt; letter-spacing: 0.2em; opacity: 0.85; }
+  .ilgan-emphasis .gan {
+    font-family: var(--font-han); font-size: 22pt; font-weight: 800;
+    color: #FFD27F; letter-spacing: 0.1em;
+  }
+  .ilgan-emphasis .desc { font-size: 11pt; opacity: 0.95; flex: 1; }
+  .oheng-bar {
+    display: flex; gap: 2px; height: 28px; margin: 10px 0;
+    background: var(--rule-soft);
+  }
+  .oh-seg {
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-family: var(--font-han); font-size: 9pt;
+    font-weight: 700; letter-spacing: 0.1em;
+  }
+  .oh-seg.목 { background: #5b8c5a; }
+  .oh-seg.화 { background: #c75c5c; }
+  .oh-seg.토 { background: #b8963e; }
+  .oh-seg.금 { background: #8a8480; color: #2A2A2A; }
+  .oh-seg.수 { background: #4a7fb5; }
+  .oh-seg.empty { background: var(--rule-soft); color: var(--muted); }
+  .sipsung-line {
+    font-size: 9.5pt; color: var(--ink-soft); line-height: 1.7;
+    padding: 8px 12px; background: white; border-left: 3px solid var(--gold);
+    margin-top: 8px;
+  }
+  .sipsung-line b { color: var(--gold); }
+  .relation-summary {
+    margin-top: 8px; padding: 10px 14px;
+    background: white; border: 1px dashed var(--accent);
+    font-size: 10pt; color: var(--ink-soft); line-height: 1.7;
+  }
+  .relation-summary b { color: var(--accent); font-weight: 700; }
+  .placeholder-preview {
+    padding: 28px; text-align: center;
+    background: var(--paper); border: 1px dashed var(--rule);
+    color: var(--muted); font-size: 11pt; line-height: 1.8;
+  }
+  .placeholder-preview .han { font-family: var(--font-han); font-size: 14pt; color: var(--accent-deep); letter-spacing: 0.2em; margin-bottom: 8px; }
+
+  .status-bar {
+    margin-top: 14px; padding: 10px 14px;
+    background: white; border: 1px solid var(--rule);
+    font-size: 10pt; color: var(--muted); display: none;
+  }
+  .status-bar.show { display: block; }
+  .status-bar.ok { border-color: var(--good); color: var(--good); }
+  .status-bar.err { border-color: var(--warn); color: var(--warn); }
+
+  @media (max-width: 1100px) {
+    .layout { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="han">正 統 命 理 硏 究 所</div>
+  <div class="name">월간운세 발행 관리</div>
+  <div class="badge">月 運 admin</div>
+</div>
+
+<div class="layout">
+
+  <!-- ============ 좌측: 입력 폼 ============ -->
+  <div class="panel">
+    <span class="han">入 力</span>
+    <h2>구독자 정보 입력</h2>
+    <div class="desc">사주·관심 인물·이번 달 질문을 입력하시면 우측에 사주가 자동 계산됩니다.</div>
+
+    <!-- 섹션 1: 본인 사주 -->
+    <div class="section">
+      <div class="section-head">
+        <div class="num">1</div>
+        <div class="title">구독자 본인 사주</div>
+      </div>
+      <div class="field"><label>이름<span class="req">*</span></label>
+        <input type="text" id="sub-name" placeholder="예: 강남경">
+      </div>
+      <div class="field"><label>성별</label>
+        <div class="radio-row">
+          <label><input type="radio" name="sub-gender" value="여" checked> 여</label>
+          <label><input type="radio" name="sub-gender" value="남"> 남</label>
+        </div>
+      </div>
+      <div class="field"><label>양·음력</label>
+        <div class="radio-row">
+          <label><input type="radio" name="sub-cal" value="solar" checked> 양력</label>
+          <label><input type="radio" name="sub-cal" value="lunar"> 음력</label>
+        </div>
+      </div>
+      <div class="field"><label>생년월일<span class="req">*</span></label>
+        <input type="date" id="sub-date" value="1999-10-01">
+      </div>
+      <div class="field"><label>출생 시 / 분</label>
+        <div class="row">
+          <select id="sub-hour" style="flex:1;">
+            <option value="">시 선택</option>
+          </select>
+          <select id="sub-min" style="flex:1;">
+            <option value="0">00분</option>
+            <option value="15">15분</option>
+            <option value="30">30분</option>
+            <option value="45">45분</option>
+          </select>
+          <label class="check-row"><input type="checkbox" id="sub-no-hour"> 시 모름</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- 섹션 2: 관심 인물 -->
+    <div class="section">
+      <div class="section-head">
+        <div class="num">2</div>
+        <div class="title">관심 인물 등록</div>
+        <div class="hint">기본 2명 · 1명 추가 ₩1,000 · 최대 5명</div>
+      </div>
+      <div id="persons-container"></div>
+      <button class="add-person-btn" id="add-person-btn">+ 인물 추가</button>
+      <div class="relation-hint">
+        <b>관계는 자세히 적을수록 풀이가 정확해집니다.</b><br/>
+        예시 — "결혼 고민 중인 남자친구의 어머니" · "새로 입사한 회사의 직장 상사"
+      </div>
+      <div class="price-display">
+        <span class="lab">월 가격</span>
+        <span class="val" id="price-display">₩19,900</span>
+        <span class="note" id="price-note">기본 2명 포함</span>
+      </div>
+    </div>
+
+    <!-- 섹션 3: 질문 -->
+    <div class="section">
+      <div class="section-head">
+        <div class="num">3</div>
+        <div class="title">이번 달 가장 궁금한 질문 2가지</div>
+        <div class="hint">선택 · 자유 입력</div>
+      </div>
+      <div class="field"><label>질문 1</label>
+        <textarea id="q1" placeholder="예: 신규 입사한 직장 후임과 관계는 괜찮을까요?"></textarea>
+      </div>
+      <div class="field"><label>질문 2</label>
+        <textarea id="q2" placeholder="예: 현재 투자 중인 주식이 있는데, 팔아야 할까요? 더 기다려야 할까요?"></textarea>
+      </div>
+    </div>
+
+    <!-- 섹션 4: 대상 월 -->
+    <div class="section">
+      <div class="section-head">
+        <div class="num">4</div>
+        <div class="title">대상 월</div>
+      </div>
+      <div class="field"><label>발행 대상 월</label>
+        <input type="month" id="target-month">
+      </div>
+    </div>
+
+    <!-- 섹션 5: 브랜드 -->
+    <div class="section">
+      <div class="section-head">
+        <div class="num">5</div>
+        <div class="title">브랜드</div>
+      </div>
+      <div class="field">
+        <div class="radio-row">
+          <label><input type="radio" name="brand" value="정통명리연구소" checked> 정통명리연구소</label>
+          <label><input type="radio" name="brand" value="붉은실운명원"> 붉은실운명원</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- 액션 버튼 -->
+    <div class="actions">
+      <button class="btn-primary" id="btn-calc">사주 미리 계산</button>
+      <button class="btn-secondary" id="btn-export">JSON 저장</button>
+      <button class="btn-tertiary" id="btn-reset">초기화</button>
+    </div>
+
+    <div class="status-bar" id="status-bar"></div>
+  </div>
+
+  <!-- ============ 우측: 사주 미리보기 ============ -->
+  <div class="panel">
+    <span class="han">命 理 計 算</span>
+    <h2>사주 미리보기</h2>
+    <div class="desc">입력값에 따라 calcSaju 모듈이 실시간으로 사주 4기둥과 십성을 계산합니다.</div>
+
+    <div id="preview-area">
+      <div class="placeholder-preview">
+        <div class="han">入 力 待 機</div>
+        좌측에 사주를 입력하시고<br/>
+        <b>[사주 미리 계산]</b> 버튼을 눌러주세요.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+/* ============ 사주 admin 로직 ============ */
+(function(){
+  const SC = window.SajuCalc;
+  if (!SC) {
+    document.getElementById('preview-area').innerHTML = '<div class="placeholder-preview" style="color:#6B3A2E;">⚠️ calc_saju.js 로드 실패<br/>같은 폴더에 calc_saju.js 가 있는지 확인하세요.</div>';
+    return;
+  }
+
+  // 시 select 채우기
+  const hourSel = document.getElementById('sub-hour');
+  for (let h=0; h<24; h++) {
+    const opt = document.createElement('option');
+    opt.value = h;
+    opt.textContent = (h<10?'0':'') + h + '시';
+    hourSel.appendChild(opt);
+  }
+  hourSel.value = '13';
+
+  // 대상 월 — 다음 달로 기본 세팅
+  const now = new Date();
+  const next = new Date(now.getFullYear(), now.getMonth()+1, 1);
+  const ny = next.getFullYear();
+  const nm = String(next.getMonth()+1).padStart(2,'0');
+  document.getElementById('target-month').value = ny + '-' + nm;
+
+  // 관심 인물 슬롯 관리
+  const personsContainer = document.getElementById('persons-container');
+  const addBtn = document.getElementById('add-person-btn');
+  let personCount = 0;
+  const MAX_PERSONS = 5;
+  const MIN_PERSONS = 2;
+  const BASE_PRICE = 19900;
+  const ADD_PRICE = 1000;
+
+  function addPersonSlot(defaults){
+    if (personCount >= MAX_PERSONS) return;
+    personCount++;
+    const idx = personCount;
+    const slot = document.createElement('div');
+    slot.className = 'person-slot';
+    slot.dataset.idx = idx;
+    slot.innerHTML = `
+      <div class="slot-head">
+        <span class="label">관심 인물 ${idx}</span>
+        ${idx > MIN_PERSONS ? '<button class="del" type="button">삭제</button>' : ''}
+      </div>
+      <div class="field"><label>이름</label>
+        <input type="text" class="p-name" placeholder="예: 박준석">
+      </div>
+      <div class="field"><label>양·음력</label>
+        <div class="radio-row">
+          <label><input type="radio" name="p-cal-${idx}" value="solar" checked> 양력</label>
+          <label><input type="radio" name="p-cal-${idx}" value="lunar"> 음력</label>
+        </div>
+      </div>
+      <div class="field"><label>생년월일</label>
+        <input type="date" class="p-date">
+      </div>
+      <div class="field"><label>출생 시 / 분</label>
+        <div class="row">
+          <select class="p-hour" style="flex:1;">
+            <option value="">시 선택</option>
+            ${Array.from({length:24}, (_,h)=>`<option value="${h}">${(h<10?'0':'')+h}시</option>`).join('')}
+          </select>
+          <select class="p-min" style="flex:1;">
+            <option value="0">00분</option>
+            <option value="15">15분</option>
+            <option value="30">30분</option>
+            <option value="45">45분</option>
+          </select>
+          <label class="check-row"><input type="checkbox" class="p-no-hour"> 시 모름</label>
+        </div>
+      </div>
+      <div class="field"><label>관계</label>
+        <input type="text" class="p-relation" placeholder="예: 결혼 고민 중인 남자친구">
+      </div>
+    `;
+    personsContainer.appendChild(slot);
+
+    // 기본값 채우기
+    if (defaults) {
+      slot.querySelector('.p-name').value = defaults.name || '';
+      slot.querySelector('.p-date').value = defaults.date || '';
+      slot.querySelector('.p-hour').value = defaults.hour ?? '';
+      slot.querySelector('.p-relation').value = defaults.relation || '';
+    }
+
+    // 삭제 버튼
+    const delBtn = slot.querySelector('.del');
+    if (delBtn) {
+      delBtn.onclick = function(){
+        slot.remove();
+        personCount--;
+        renumberSlots();
+        updatePrice();
+        addBtn.disabled = false;
+      };
+    }
+    updatePrice();
+    if (personCount >= MAX_PERSONS) addBtn.disabled = true;
+  }
+  function renumberSlots(){
+    const slots = personsContainer.querySelectorAll('.person-slot');
+    slots.forEach((s, i) => {
+      s.dataset.idx = i+1;
+      s.querySelector('.slot-head .label').textContent = '관심 인물 ' + (i+1);
+    });
+  }
+  function updatePrice(){
+    const n = personCount;
+    const add = Math.max(0, n - MIN_PERSONS);
+    const price = BASE_PRICE + add * ADD_PRICE;
+    document.getElementById('price-display').textContent = '₩' + price.toLocaleString();
+    document.getElementById('price-note').textContent =
+      n === MIN_PERSONS ? '기본 ' + MIN_PERSONS + '명 포함' :
+      '기본 2명 + 추가 ' + add + '명 (₩' + ADD_PRICE.toLocaleString() + '/명)';
+  }
+  addBtn.onclick = function(){ addPersonSlot(); };
+
+  // 초기 2명 + 강남경 케이스 예시
+  addPersonSlot({ name:'박준석', date:'1999-01-18', hour:14, relation:'결혼 고민 중인 남자친구' });
+  addPersonSlot({ name:'이하경', date:'2001-02-05', hour:11, relation:'신규 입사한 직장 후임' });
+  document.getElementById('sub-name').value = '강남경';
+  document.getElementById('q1').value = '신규 입사한 직장 후임과 관계는 괜찮을까요?';
+  document.getElementById('q2').value = '현재 투자 중인 주식이 있는데, 팔아야 할까요? 더 기다려야 할까요?';
+
+  // ============ 사주 계산 ============
+  function calcOne(name, calendar, dateStr, hourStr, minStr, noHour, relation){
+    if (!dateStr) return null;
+    const [yS, mS, dS] = dateStr.split('-').map(Number);
+    let y = yS, m = mS, d = dS;
+    if (calendar === 'lunar') {
+      const r = SC.lunarToSolar(y, m, d);
+      y = r.year; m = r.month; d = r.day;
+    }
+    const h = noHour ? null : (hourStr === '' ? null : Number(hourStr));
+    const mn = noHour ? null : Number(minStr || 0);
+    const saju = SC.calcSaju(y, m, d, h, mn);
+    return { name, calendar, birth:{y:yS, m:mS, d:dS, h, mn}, solarBirth:{y, m, d, h, mn}, relation, saju };
+  }
+
+  function renderPillarsRow(saju){
+    const p = saju.pillars;
+    const cells = ['年','月','日','時'];
+    return `<div class="pillars-row">${
+      cells.map((lab, i) => {
+        if (!p[i]) return `<div class="pillar-cell"><div class="label">${lab}</div><div class="han" style="color:#bbb;">—</div></div>`;
+        const pp = p[i];
+        const isDay = i === 2;
+        return `<div class="pillar-cell ${isDay?'day':''}">
+          <div class="label">${lab}</div>
+          <div class="han">${pp.stem}${pp.branch}</div>
+          <div class="kr">${pp.stemKr}${pp.branchKr}</div>
+          <div class="oh">${pp.stemOh}·${pp.branchOh}</div>
+        </div>`;
+      }).join('')
+    }</div>`;
+  }
+  function renderOhengBar(oh){
+    const labels = ['목','화','토','금','수'];
+    const total = labels.reduce((s,k)=>s+(oh[k]||0), 0);
+    if (total === 0) return '';
+    return `<div class="oheng-bar">${
+      labels.map(k => {
+        const cnt = oh[k] || 0;
+        if (cnt === 0) return '';
+        const pct = (cnt / total * 100).toFixed(1);
+        return `<div class="oh-seg ${k}" style="flex:${cnt};">${k} ${cnt}</div>`;
+      }).join('')
+    }</div>`;
+  }
+  function renderSelfCard(person){
+    const s = person.saju;
+    const ilganOh = SC.OHENG_GAN[s.ilganIdx];
+    const sipsung = SC.buildSipsungContext(s).split('\n')[1] || '';
+    const birthStr = `${person.birth.y}-${String(person.birth.m).padStart(2,'0')}-${String(person.birth.d).padStart(2,'0')}`
+      + (person.birth.h !== null ? ` ${String(person.birth.h).padStart(2,'0')}:${String(person.birth.mn||0).padStart(2,'0')}` : ' (시 모름)')
+      + ` · ${person.calendar==='lunar'?'음력':'양력'}`;
+    return `<div class="preview-card self">
+      <div class="pc-head">
+        <div class="who">${person.name || '(이름 미입력)'}</div>
+        <div class="meta">${birthStr}</div>
+      </div>
+      ${renderPillarsRow(s)}
+      <div class="ilgan-emphasis">
+        <div class="lab">日 干</div>
+        <div class="gan">${s.pillars[2].stem}</div>
+        <div class="desc">${s.ilgan} (${ilganOh}) 일간 · ${s.hanja}</div>
+      </div>
+      ${renderOhengBar(s.oheng)}
+      <div class="sipsung-line"><b>십성 분포</b> · ${sipsung}</div>
+    </div>`;
+  }
+  function renderPersonCard(person, selfSaju){
+    if (!person) return '';
+    const s = person.saju;
+    const ilganOh = SC.OHENG_GAN[s.ilganIdx];
+    const sipsung = SC.getSipsung(selfSaju.ilganIdx, s.ilganIdx);
+    const birthStr = `${person.birth.y}-${String(person.birth.m).padStart(2,'0')}-${String(person.birth.d).padStart(2,'0')}`
+      + (person.birth.h !== null ? ` ${String(person.birth.h).padStart(2,'0')}:${String(person.birth.mn||0).padStart(2,'0')}` : ' (시 모름)');
+    return `<div class="preview-card">
+      <div class="pc-head">
+        <div class="who">${person.name || '(이름 미입력)'}</div>
+        <div class="meta">${birthStr}</div>
+      </div>
+      ${person.relation ? `<div class="pc-relation">— ${person.relation}</div>` : ''}
+      ${renderPillarsRow(s)}
+      <div class="relation-summary">
+        <b>본인(${selfSaju.ilgan}) ↔ ${person.name||'상대'}(${s.ilgan})</b> · 일간 십성 = <b>${sipsung || '동일 오행'}</b>
+      </div>
+    </div>`;
+  }
+
+  function gatherSelf(){
+    const name = document.getElementById('sub-name').value.trim();
+    const gender = document.querySelector('input[name="sub-gender"]:checked').value;
+    const cal = document.querySelector('input[name="sub-cal"]:checked').value;
+    const date = document.getElementById('sub-date').value;
+    const hour = document.getElementById('sub-hour').value;
+    const min = document.getElementById('sub-min').value;
+    const noHour = document.getElementById('sub-no-hour').checked;
+    const result = calcOne(name, cal, date, hour, min, noHour);
+    if (result) result.gender = gender;
+    return result;
+  }
+  function gatherPersons(){
+    const slots = personsContainer.querySelectorAll('.person-slot');
+    const arr = [];
+    slots.forEach(slot => {
+      const idx = slot.dataset.idx;
+      const name = slot.querySelector('.p-name').value.trim();
+      const cal = slot.querySelector(`input[name="p-cal-${idx}"]:checked`).value;
+      const date = slot.querySelector('.p-date').value;
+      const hour = slot.querySelector('.p-hour').value;
+      const min = slot.querySelector('.p-min').value;
+      const noHour = slot.querySelector('.p-no-hour').checked;
+      const relation = slot.querySelector('.p-relation').value.trim();
+      arr.push(calcOne(name, cal, date, hour, min, noHour, relation));
+    });
+    return arr.filter(Boolean);
+  }
+  function showStatus(msg, type){
+    const bar = document.getElementById('status-bar');
+    bar.textContent = msg;
+    bar.className = 'status-bar show ' + (type||'');
+    setTimeout(()=>bar.classList.remove('show'), 3500);
+  }
+
+  document.getElementById('btn-calc').onclick = function(){
+    const self = gatherSelf();
+    if (!self) { showStatus('생년월일을 입력해 주세요.', 'err'); return; }
+    const persons = gatherPersons();
+    const area = document.getElementById('preview-area');
+    let html = renderSelfCard(self);
+    persons.forEach(p => { html += renderPersonCard(p, self.saju); });
+    area.innerHTML = html;
+    showStatus(`✓ 사주 계산 완료 · 본인 1명 + 관심 인물 ${persons.length}명`, 'ok');
+  };
+
+  document.getElementById('btn-export').onclick = function(){
+    const self = gatherSelf();
+    if (!self) { showStatus('생년월일을 입력해 주세요.', 'err'); return; }
+    const persons = gatherPersons();
+    const data = {
+      brand: document.querySelector('input[name="brand"]:checked').value,
+      targetMonth: document.getElementById('target-month').value,
+      subscriber: self,
+      relations: persons,
+      questions: [
+        document.getElementById('q1').value.trim(),
+        document.getElementById('q2').value.trim()
+      ].filter(Boolean),
+      price: BASE_PRICE + Math.max(0, persons.length - MIN_PERSONS) * ADD_PRICE,
+      createdAt: new Date().toISOString()
+    };
+    const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `monthly_${data.targetMonth || 'YYYY-MM'}_${self.name || 'subscriber'}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showStatus('✓ JSON 파일 저장 완료', 'ok');
+  };
+
+  document.getElementById('btn-reset').onclick = function(){
+    if (!confirm('입력값을 모두 초기화하시겠어요?')) return;
+    document.getElementById('sub-name').value = '';
+    document.getElementById('sub-date').value = '';
+    document.getElementById('sub-hour').value = '';
+    document.getElementById('sub-min').value = '0';
+    document.getElementById('sub-no-hour').checked = false;
+    document.getElementById('q1').value = '';
+    document.getElementById('q2').value = '';
+    personsContainer.innerHTML = '';
+    personCount = 0;
+    addPersonSlot();
+    addPersonSlot();
+    addBtn.disabled = false;
+    document.getElementById('preview-area').innerHTML =
+      '<div class="placeholder-preview"><div class="han">入 力 待 機</div>좌측에 사주를 입력하시고<br/><b>[사주 미리 계산]</b> 버튼을 눌러주세요.</div>';
+    showStatus('초기화 완료', 'ok');
+  };
+})();
+</script>
+</body>
+</html>
