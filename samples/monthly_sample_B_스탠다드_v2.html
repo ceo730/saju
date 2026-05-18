@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>정통명리연구소 — 이서연 님의 2026년 7월 나침반 (B안 스탠다드 · v2)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;700;900&family=Nanum+Myeongjo:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1F1F1F;
+    --ink-soft: #2E2E2E;
+    --paper: #FAFAF6;
+    --line: #2A2A2A;
+    --accent: #1F3A5F;
+    --accent-deep: #173050;
+    --accent-soft: #EBF0F6;
+    --warn: #6B3A2E;
+    --good: #2E5A3E;
+    --gold: #8C7A3D;
+    --muted: #5C5C5C;
+    --muted-light: #8A8A8A;
+    --rule: #D6D2C7;
+    --rule-dash: #C7C3B8;
+
+    --font-body: 'Pretendard', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-serif: 'Noto Serif KR', 'Nanum Myeongjo', serif;
+    --font-han: 'Nanum Myeongjo', 'Noto Serif KR', serif;
+
+    --fs-cover-title: 30pt;
+    --fs-display: 26pt;
+    --fs-h1: 20pt;
+    --fs-h2: 15pt;
+    --fs-h3: 13pt;
+    --fs-body: 11pt;
+    --fs-body-sm: 10pt;
+    --fs-caption: 9pt;
+
+    --lh-tight: 1.35;
+    --lh-snug: 1.55;
+    --lh-normal: 1.85;
+    --lh-loose: 2.0;
+    --lh-han: 1.45;
+
+    --ls-kr: -0.01em;
+    --ls-kr-loose: 0.03em;
+    --ls-han: 0.25em;
+    --ls-han-tight: 0.15em;
+    --ls-han-wide: 0.4em;
+    --ls-en: 0.18em;
+    --ls-en-wide: 0.28em;
+
+    --sp-1: 4px;
+    --sp-2: 8px;
+    --sp-3: 12px;
+    --sp-4: 16px;
+    --sp-5: 24px;
+    --sp-6: 32px;
+    --sp-7: 40px;
+    --sp-8: 56px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: #777;
+    font-family: var(--font-body);
+    color: var(--ink);
+    font-size: var(--fs-body);
+    line-height: var(--lh-normal);
+    letter-spacing: var(--ls-kr);
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern" 1, "liga" 1, "ss01" 1;
+  }
+
+  body { padding: 30px 0; }
+
+  .page {
+    width: 210mm;
+    height: 297mm;
+    background: var(--paper);
+    margin: 0 auto var(--sp-6);
+    padding: 26mm 22mm;
+    position: relative;
+    box-shadow: 0 6px 28px rgba(0,0,0,0.22);
+    page-break-after: always;
+    overflow: hidden;
+  }
+
+  .han { font-family: var(--font-han); letter-spacing: var(--ls-han); }
+  .han-tight { font-family: var(--font-han); letter-spacing: var(--ls-han-tight); }
+  .en-label { font-family: var(--font-body); letter-spacing: var(--ls-en); text-transform: uppercase; font-weight: 500; }
+
+  .page-num {
+    position: absolute;
+    bottom: 14mm;
+    right: 22mm;
+    font-size: var(--fs-caption);
+    color: var(--muted);
+    font-family: var(--font-body);
+    letter-spacing: var(--ls-en);
+    font-weight: 500;
+  }
+  .brand-mark {
+    position: absolute;
+    top: 14mm;
+    left: 22mm;
+    font-family: var(--font-han);
+    font-size: var(--fs-caption);
+    letter-spacing: var(--ls-han);
+    color: var(--muted);
+  }
+  .brand-mark .ko {
+    font-family: var(--font-body);
+    margin-left: var(--sp-2);
+    letter-spacing: var(--ls-kr-loose);
+    color: var(--muted-light);
+  }
+  .footer-line {
+    position: absolute;
+    bottom: 14mm;
+    left: 22mm;
+    font-size: var(--fs-caption);
+    color: var(--muted-light);
+    font-family: var(--font-body);
+    letter-spacing: var(--ls-kr-loose);
+  }
+  .footer-line .han { font-family: var(--font-han); letter-spacing: var(--ls-han-tight); margin-right: var(--sp-2); color: var(--muted); }
+
+  /* ===== COVER ===== */
+  .cover {
+    display: flex; flex-direction: column; justify-content: space-between;
+    height: 100%; text-align: center; padding: 30mm 8mm;
+  }
+  .cover .han-top { font-family: var(--font-han); font-size: 13pt; color: var(--muted); letter-spacing: var(--ls-han-wide); }
+  .cover .main-title {
+    font-family: var(--font-serif); font-weight: 700;
+    font-size: var(--fs-cover-title);
+    line-height: 1.55; color: var(--ink); letter-spacing: -0.015em;
+  }
+  .cover .main-title .accent { color: var(--accent); font-weight: 900; }
+  .cover .sub-title {
+    font-family: var(--font-body); font-size: 13pt; color: var(--muted);
+    margin-top: var(--sp-5); letter-spacing: var(--ls-kr-loose); line-height: 1.7; font-weight: 400;
+  }
+  .cover .name-block {
+    border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+    padding: 22px 0 20px; margin: 30px auto 28px; width: 72%;
+  }
+  .cover .name-block .name {
+    font-family: var(--font-han); font-size: 22pt; font-weight: 700;
+    letter-spacing: 0.18em; line-height: 1.3;
+  }
+  .cover .name-block .month {
+    font-family: var(--font-body); font-size: 12pt; color: var(--muted);
+    margin-top: var(--sp-2); letter-spacing: 0.05em; font-weight: 400;
+  }
+  .cover .pillars { display: flex; justify-content: center; gap: 14px; margin-top: var(--sp-5); }
+  .cover .pillar {
+    border: 1px solid var(--line); padding: 14px; width: 72px; text-align: center; background: white;
+  }
+  .cover .pillar .label { font-family: var(--font-han); font-size: 9pt; color: var(--muted); letter-spacing: var(--ls-han-tight); margin-bottom: var(--sp-1); }
+  .cover .pillar .han-pair { font-family: var(--font-han); font-size: 18pt; font-weight: 700; line-height: 1.25; }
+  .cover .pillar .han-pair.day { color: var(--accent); }
+  .cover .seal { font-family: var(--font-han); font-size: 10.5pt; letter-spacing: var(--ls-han-wide); color: var(--muted); margin-top: var(--sp-6); }
+  .cover .seal .red {
+    display: inline-block; border: 1.5px solid var(--warn); color: var(--warn);
+    padding: 5px 14px; margin-left: var(--sp-3); letter-spacing: var(--ls-han); font-weight: 700;
+  }
+  .grade-stamp {
+    position: absolute;
+    top: 22mm;
+    right: 22mm;
+    font-family: var(--font-han);
+    border: 2px solid var(--gold);
+    color: var(--gold);
+    padding: 8px 16px;
+    font-size: 10pt;
+    letter-spacing: var(--ls-han-wide);
+    font-weight: 700;
+  }
+
+  /* ===== SECTION BAR ===== */
+  .section-bar {
+    border-top: 2px solid var(--line);
+    border-bottom: 1px solid var(--rule);
+    padding: 14px 0 12px;
+    margin-bottom: var(--sp-6);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--sp-4);
+  }
+  .section-bar .han { font-family: var(--font-han); font-size: 12pt; letter-spacing: var(--ls-han-wide); color: var(--muted); }
+  .section-bar .title {
+    font-family: var(--font-serif); font-size: var(--fs-h1); font-weight: 700;
+    color: var(--ink); letter-spacing: -0.005em; flex: 1; text-align: center;
+  }
+  .section-bar .en-label { font-size: var(--fs-caption); color: var(--muted); }
+
+  .chap-num {
+    font-family: var(--font-body);
+    font-size: var(--fs-caption);
+    color: var(--gold);
+    letter-spacing: var(--ls-en-wide);
+    margin-bottom: var(--sp-2);
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  /* ===== PAGE 2 INTRO ===== */
+  .intro-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: var(--sp-5);
+    margin-top: var(--sp-2);
+  }
+  .intro-block {
+    background: white;
+    border: 1px solid var(--line);
+    padding: 24px 26px;
+  }
+  .intro-block + .intro-block { margin-top: var(--sp-5); }
+  .intro-block h3 {
+    font-family: var(--font-serif);
+    font-size: 14pt;
+    font-weight: 700;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: var(--sp-3);
+    margin-bottom: var(--sp-4);
+    letter-spacing: -0.005em;
+  }
+  .intro-block p {
+    font-family: var(--font-body);
+    font-size: 10.5pt;
+    color: var(--ink-soft);
+    line-height: 1.95;
+    letter-spacing: var(--ls-kr);
+  }
+  .intro-block p + p { margin-top: 0.7em; }
+  .intro-block .han-inline { color: var(--accent); font-weight: 700; font-family: var(--font-han); letter-spacing: var(--ls-han-tight); }
+
+  .yin-yang-bar {
+    display: flex;
+    height: 32px;
+    border: 1px solid var(--line);
+    margin: var(--sp-3) 0;
+    font-family: var(--font-han);
+    font-size: 9.5pt;
+    overflow: hidden;
+  }
+  .yin-yang-bar div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    letter-spacing: var(--ls-han-tight);
+  }
+  .seg-fire { background: #B7472A; }
+  .seg-earth { background: #8C7A3D; }
+  .seg-wood { background: #4F7A4D; }
+  .seg-metal { background: #9E9E9E; color: #2A2A2A !important; }
+  .seg-water { background: #1F3A5F; }
+  .seg-empty { background: #DDD8C9; color: #777 !important; }
+
+  .yin-yang-label {
+    font-family: var(--font-body);
+    font-size: 9.5pt;
+    color: var(--muted);
+    margin: var(--sp-3) 0 var(--sp-1);
+    letter-spacing: var(--ls-kr-loose);
+  }
+
+  .month-meta {
+    background: var(--accent-soft);
+    border-left: 4px solid var(--accent);
+    padding: 20px 24px;
+    margin-top: var(--sp-5);
+    font-family: var(--font-body);
+    font-size: 10.5pt;
+    line-height: 1.95;
+  }
+  .month-meta .row { display: flex; padding: 5px 0; gap: var(--sp-3); }
+  .month-meta .row .k {
+    font-family: var(--font-han);
+    color: var(--accent);
+    font-weight: 700;
+    width: 90px;
+    letter-spacing: var(--ls-han-tight);
+    flex-shrink: 0;
+  }
+  .month-meta .row .v { color: var(--ink-soft); letter-spacing: var(--ls-kr); }
+
+  /* ===== PAGE 3 LEAD ===== */
+  .lead {
+    font-family: var(--font-serif); font-weight: 500;
+    font-size: 13.5pt; color: var(--ink-soft);
+    margin-bottom: var(--sp-7); line-height: 1.95;
+    letter-spacing: -0.005em;
+  }
+  .lead .accent { color: var(--accent); font-weight: 700; }
+  .lead p + p { margin-top: 0.6em; }
+
+  .keywords { display: flex; justify-content: center; gap: var(--sp-5); margin: var(--sp-5) 0 var(--sp-6); }
+  .kw {
+    border: 1.5px solid var(--line); padding: 24px 24px 22px;
+    width: 138px; text-align: center; background: white;
+  }
+  .kw .num { font-family: var(--font-body); font-size: 9.5pt; color: var(--muted); letter-spacing: var(--ls-en); margin-bottom: var(--sp-3); font-weight: 500; }
+  .kw .word { font-family: var(--font-han); font-size: 22pt; font-weight: 800; color: var(--ink); letter-spacing: 0.05em; line-height: 1.2; }
+  .kw .han { font-family: var(--font-han); font-size: 10.5pt; color: var(--accent); margin-top: var(--sp-3); letter-spacing: var(--ls-han); }
+
+  .do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-5); margin: var(--sp-5) 0; }
+  .box { border: 1px solid var(--line); padding: 26px 28px; background: white; }
+  .box .head {
+    font-family: var(--font-serif); font-size: 14pt; font-weight: 700;
+    padding-bottom: var(--sp-3); border-bottom: 1px solid var(--rule); margin-bottom: var(--sp-4);
+  }
+  .box.good .head { color: var(--good); }
+  .box.warn .head { color: var(--warn); }
+  .box ul { list-style: none; padding: 0; }
+  .box ul li {
+    font-family: var(--font-body); font-size: var(--fs-body);
+    padding: 7px 0; color: var(--ink-soft); line-height: 1.7;
+  }
+  .box ul li::before { content: "— "; color: var(--muted-light); margin-right: 2px; }
+
+  .flow { margin-top: var(--sp-5); text-align: center; padding: 22px 26px; background: var(--accent-soft); border-left: 4px solid var(--accent); }
+  .flow .label { font-family: var(--font-han); font-size: 10.5pt; color: var(--accent); letter-spacing: var(--ls-han-wide); margin-bottom: var(--sp-3); }
+  .flow .quote { font-family: var(--font-serif); font-size: 17pt; font-weight: 700; color: var(--ink); line-height: 1.55; letter-spacing: -0.005em; }
+
+  /* ===== PAGE 4 BIG DAY FULL ===== */
+  .bigday-fullpage {
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    height: calc(100% - 90px); text-align: center; position: relative;
+  }
+  .bigday-fullpage::before {
+    content: "決";
+    position: absolute;
+    top: 4mm; right: -8mm;
+    font-family: var(--font-han);
+    font-size: 240pt;
+    color: rgba(31, 58, 95, 0.05);
+    line-height: 1; font-weight: 800; z-index: 0;
+  }
+  .bigday-fullpage > * { position: relative; z-index: 1; }
+  .bigday-pretitle { font-family: var(--font-han); font-size: 12pt; color: var(--muted); letter-spacing: var(--ls-han-wide); margin-bottom: var(--sp-4); }
+  .bigday-date { font-family: var(--font-han); font-size: 124pt; font-weight: 800; line-height: 1; color: var(--accent); margin: var(--sp-2) 0; letter-spacing: -0.04em; }
+  .bigday-month { font-family: var(--font-serif); font-size: 19pt; color: var(--ink-soft); font-weight: 500; margin-bottom: var(--sp-1); }
+  .bigday-day { font-family: var(--font-body); font-size: 13pt; color: var(--muted); margin-bottom: var(--sp-5); letter-spacing: var(--ls-kr-loose); }
+  .bigday-han {
+    font-family: var(--font-han); font-size: 30pt; font-weight: 700;
+    border-top: 1.5px solid var(--line); border-bottom: 1.5px solid var(--line);
+    padding: 16px 50px; margin: var(--sp-5) 0; letter-spacing: 0.32em;
+  }
+  .bigday-detail {
+    margin-top: var(--sp-5); text-align: left; background: white; border: 1px solid var(--line);
+    padding: 24px 28px; width: 84%; font-family: var(--font-body); font-size: var(--fs-body); line-height: 1.95;
+  }
+  .bigday-detail .row { display: flex; border-bottom: 1px dashed var(--rule-dash); padding: 8px 0; gap: var(--sp-4); }
+  .bigday-detail .row:first-child { padding-top: 4px; }
+  .bigday-detail .row:last-child { border: none; padding-bottom: 4px; }
+  .bigday-detail .label {
+    font-family: var(--font-han); width: 88px; color: var(--accent); font-weight: 700;
+    flex-shrink: 0; letter-spacing: var(--ls-han-tight); font-size: 10.5pt;
+  }
+  .bigday-detail .val { flex: 1; color: var(--ink-soft); line-height: 1.85; }
+
+  /* ===== PAGE 5 CALENDAR ===== */
+  .calendar { width: 100%; border-collapse: collapse; margin-top: var(--sp-3); background: white; }
+  .calendar th, .calendar td {
+    border: 1px solid #C8C4B8; width: 14.28%; height: 62px; vertical-align: top;
+    padding: 7px 9px; font-family: var(--font-body); font-size: var(--fs-body-sm); position: relative;
+    letter-spacing: var(--ls-kr);
+  }
+  .calendar th {
+    background: var(--line); color: white; height: 36px; text-align: center;
+    font-family: var(--font-han); font-weight: 500; letter-spacing: var(--ls-han-wide);
+    font-size: 11pt; padding-top: 10px;
+  }
+  .calendar td .date { font-family: var(--font-han); font-size: 13pt; font-weight: 700; line-height: 1.1; }
+  .calendar td .gapja { font-family: var(--font-han); font-size: 9pt; color: var(--muted); margin-top: 3px; }
+  .calendar td .mark { position: absolute; bottom: 7px; right: 9px; font-size: 13pt; font-weight: 700; }
+  .calendar td.good .mark { color: var(--good); }
+  .calendar td.warn .mark { color: var(--warn); }
+  .calendar td.bigday { background: var(--accent); color: white; }
+  .calendar td.bigday .date, .calendar td.bigday .gapja { color: white; }
+  .calendar td.bigday .star { position: absolute; bottom: 5px; right: 7px; font-size: 13pt; color: #FFD46A; }
+  .calendar td.gray { background: #F0EDE5; }
+  .calendar td.sun .date { color: var(--warn); }
+
+  .legend { display: flex; justify-content: center; gap: var(--sp-6); margin-top: var(--sp-5); font-family: var(--font-body); font-size: 10.5pt; color: var(--ink-soft); }
+  .legend .item { display: flex; align-items: center; gap: 8px; letter-spacing: var(--ls-kr); }
+  .legend .item .sym { font-size: 15pt; font-weight: 700; }
+
+  .activity-table {
+    width: 100%; margin-top: var(--sp-5); border-collapse: collapse;
+    font-family: var(--font-body); font-size: 10.5pt; background: white;
+  }
+  .activity-table th, .activity-table td {
+    border: 1px solid #C8C4B8; padding: 12px 14px; text-align: left; line-height: 1.7;
+  }
+  .activity-table th {
+    background: var(--accent-soft); color: var(--accent);
+    font-family: var(--font-serif); font-size: 11pt; font-weight: 700;
+    letter-spacing: 0;
+  }
+  .activity-table td:first-child {
+    font-family: var(--font-serif); color: var(--accent); font-weight: 700; width: 26%; letter-spacing: 0;
+  }
+  .activity-table td:last-child { color: var(--ink-soft); letter-spacing: var(--ls-kr); }
+
+  /* ===== PAGE 6-9 FORTUNE ===== */
+  .fortune-pretitle {
+    font-family: var(--font-serif);
+    font-size: 28pt; color: var(--accent); font-weight: 800;
+    margin-bottom: var(--sp-4); letter-spacing: 0.06em;
+    display: flex; align-items: baseline; gap: var(--sp-4);
+  }
+  .fortune-pretitle .han { font-size: 13pt; color: var(--muted); letter-spacing: var(--ls-han-wide); font-weight: 400; }
+
+  .fortune-summary {
+    font-family: var(--font-serif); font-size: 14pt; color: var(--ink-soft);
+    line-height: 1.95; padding: 22px 26px; background: white;
+    border-left: 4px solid var(--accent); margin-bottom: var(--sp-6);
+    letter-spacing: -0.005em; font-weight: 500;
+  }
+  .fortune-summary .accent { color: var(--accent); font-weight: 700; }
+  .fortune-summary p + p { margin-top: 0.55em; }
+
+  .week-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: var(--sp-4); margin-top: var(--sp-5);
+  }
+  .week-card {
+    background: white; border: 1px solid var(--line); padding: 18px 18px;
+  }
+  .week-card .wnum {
+    font-family: var(--font-body); font-size: 9pt; color: var(--gold);
+    letter-spacing: var(--ls-en-wide); margin-bottom: var(--sp-1); font-weight: 600;
+  }
+  .week-card .wtitle {
+    font-family: var(--font-han); font-size: 13pt; font-weight: 700; color: var(--ink);
+    margin-bottom: var(--sp-3); padding-bottom: var(--sp-2); border-bottom: 1px solid var(--rule);
+    letter-spacing: 0;
+  }
+  .week-card .wbody {
+    font-family: var(--font-body); font-size: 10pt; color: var(--ink-soft);
+    line-height: 1.8; letter-spacing: var(--ls-kr);
+  }
+
+  .star-line {
+    margin-top: var(--sp-5); display: flex; align-items: center;
+    gap: var(--sp-2); flex-wrap: wrap;
+    font-family: var(--font-body); font-size: 10.5pt;
+  }
+  .star-line .label {
+    font-family: var(--font-han); color: var(--accent); font-weight: 700;
+    margin-right: var(--sp-2); letter-spacing: var(--ls-han);
+  }
+  .badge {
+    border: 1px solid var(--line); padding: 5px 12px; background: white;
+    font-family: var(--font-body); font-size: 10pt; letter-spacing: var(--ls-kr);
+    font-weight: 500;
+  }
+  .badge.warn { border-color: var(--warn); color: var(--warn); }
+  .badge.good { border-color: var(--good); color: var(--good); }
+
+  .insight {
+    margin-top: var(--sp-6); padding: 20px 24px;
+    background: var(--accent-soft); border-left: 4px solid var(--accent);
+    font-family: var(--font-body); font-size: 11pt; line-height: 1.95;
+    color: var(--ink-soft); letter-spacing: var(--ls-kr);
+  }
+  .insight strong { color: var(--accent); font-family: var(--font-serif); font-weight: 700; }
+
+  /* ===== PAGE 10 WEEKLY ACTIONS ===== */
+  .week-actions { margin-top: var(--sp-3); }
+  .week-action-row {
+    display: grid; grid-template-columns: 64px 1fr 1fr 1fr;
+    background: white; border: 1px solid var(--line);
+    margin-bottom: var(--sp-3); overflow: hidden;
+  }
+  .week-action-row > div { padding: 16px 18px; border-right: 1px solid #E0DCCF; }
+  .week-action-row > div:last-child { border-right: none; }
+  .week-action-row .wnum {
+    background: var(--accent); color: white;
+    font-family: var(--font-han); font-size: 18pt; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .week-action-row .col-title {
+    font-family: var(--font-body); font-size: 8.5pt; color: var(--muted);
+    letter-spacing: var(--ls-en-wide); margin-bottom: var(--sp-2); font-weight: 600;
+    text-transform: uppercase;
+  }
+  .week-action-row ul { list-style: none; padding: 0; margin: 0; }
+  .week-action-row ul li {
+    font-family: var(--font-body); font-size: 10pt; padding: 4px 0;
+    color: var(--ink-soft); line-height: 1.7; letter-spacing: var(--ls-kr);
+  }
+  .week-action-row ul li::before { content: "· "; color: var(--muted-light); margin-right: 2px; }
+  .week-action-row .date-range {
+    font-family: var(--font-han); font-size: 11pt; color: var(--ink);
+    font-weight: 700; margin-bottom: var(--sp-1);
+  }
+  .week-action-row .mode-name {
+    font-family: var(--font-serif); color: var(--accent);
+    font-weight: 700; font-size: 13pt;
+    letter-spacing: 0; margin-top: 2px;
+  }
+  .week-action-row .mode-desc {
+    font-family: var(--font-body); font-size: 9pt; color: var(--muted);
+    line-height: 1.6; margin-top: var(--sp-1); letter-spacing: var(--ls-kr);
+  }
+
+  /* ===== PAGE 11 SUPPORT GRID ===== */
+  .support-lead {
+    font-family: var(--font-body); font-size: 11pt; color: var(--ink-soft);
+    padding: var(--sp-4) 0 var(--sp-5);
+    line-height: 1.95; letter-spacing: var(--ls-kr);
+  }
+  .support-lead strong { color: var(--accent); font-family: var(--font-han); letter-spacing: var(--ls-han-tight); }
+
+  .grid-3 {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: var(--sp-5); margin-top: var(--sp-3);
+  }
+  .sub-card {
+    background: white; border: 1px solid var(--line);
+    padding: 24px 22px; text-align: center;
+  }
+  .sub-card .icon { font-size: 32pt; margin-bottom: var(--sp-2); }
+  .sub-card .title {
+    font-family: var(--font-serif); font-size: 13pt; font-weight: 700;
+    margin-bottom: var(--sp-1); letter-spacing: 0;
+  }
+  .sub-card .han {
+    font-family: var(--font-han); font-size: 10pt; color: var(--accent);
+    letter-spacing: var(--ls-han); margin-bottom: var(--sp-4);
+  }
+  .sub-card .body {
+    text-align: left; font-family: var(--font-body); font-size: 10pt;
+    color: var(--ink-soft); line-height: 1.85;
+    border-top: 1px dashed var(--rule-dash); padding-top: var(--sp-3);
+    letter-spacing: var(--ls-kr);
+  }
+  .sub-card .body strong { color: var(--accent); font-family: var(--font-han); letter-spacing: var(--ls-han-tight); }
+  .sub-card .body-row {
+    padding: 6px 0; border-top: 1px dashed var(--rule-dash);
+  }
+  .sub-card .body-row:first-child { border-top: none; padding-top: 0; }
+  .sub-card .footnote {
+    color: var(--muted); font-size: 9pt; margin-top: var(--sp-3);
+    line-height: 1.7; letter-spacing: var(--ls-kr);
+  }
+
+  .color-chips { display: flex; gap: 10px; justify-content: center; margin: var(--sp-2) 0 var(--sp-4); }
+  .chip { width: 42px; height: 42px; border: 1px solid var(--line); }
+  .chip.navy { background: #1F3A5F; }
+  .chip.silver { background: #C8CCD1; }
+
+  .nums-sm { display: flex; gap: 10px; justify-content: center; margin: var(--sp-2) 0 var(--sp-4); }
+  .num-box-sm {
+    font-family: var(--font-han); font-size: 22pt; font-weight: 800;
+    width: 48px; height: 48px; border: 1.5px solid var(--accent); color: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    letter-spacing: -0.03em;
+  }
+
+  /* ===== PAGE 12 CLOSING ===== */
+  .closing-wrap {
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    height: calc(100% - 90px); text-align: center;
+  }
+  .quote-card {
+    border: 1px solid var(--line); background: white;
+    padding: 40px 56px; margin: var(--sp-3) 0; max-width: 520px;
+  }
+  .quote-card .han-quote {
+    font-family: var(--font-han); font-size: 24pt; font-weight: 700;
+    letter-spacing: 0.22em; margin-bottom: var(--sp-5); line-height: 1.6; color: var(--ink);
+  }
+  .quote-card .kor-quote {
+    font-family: var(--font-serif); font-size: 13.5pt; font-weight: 500;
+    color: var(--ink-soft); margin-bottom: var(--sp-4); line-height: 1.75; letter-spacing: 0;
+  }
+  .quote-card .source {
+    font-family: var(--font-han); font-size: 10pt; color: var(--muted);
+    letter-spacing: var(--ls-han);
+    border-top: 1px solid var(--rule); padding-top: var(--sp-3); margin-top: var(--sp-4);
+  }
+  .quote-card .interp {
+    font-family: var(--font-body); font-size: 10.5pt; color: var(--ink-soft);
+    margin-top: var(--sp-4); line-height: 1.95; text-align: left; letter-spacing: var(--ls-kr);
+  }
+  .next-month {
+    background: var(--accent-soft); border-left: 4px solid var(--accent);
+    padding: 22px 28px; margin-top: var(--sp-5); width: 84%; text-align: left;
+  }
+  .next-month .label { font-family: var(--font-han); font-size: 10.5pt; letter-spacing: var(--ls-han-wide); color: var(--accent); margin-bottom: var(--sp-2); }
+  .next-month .body { font-family: var(--font-body); font-size: 11pt; color: var(--ink-soft); line-height: 1.95; letter-spacing: var(--ls-kr); }
+  .next-month .body strong { color: var(--accent); font-weight: 700; }
+  .qna {
+    margin-top: var(--sp-4); padding: 18px 24px;
+    border: 1px solid var(--gold); width: 84%; text-align: left; background: white;
+  }
+  .qna .label { font-family: var(--font-han); font-size: 10pt; letter-spacing: var(--ls-han-wide); color: var(--gold); margin-bottom: var(--sp-1); }
+  .qna .body { font-family: var(--font-body); font-size: 10.5pt; color: var(--muted); line-height: 1.85; letter-spacing: var(--ls-kr); }
+  .lab-words {
+    margin-top: var(--sp-5); font-family: var(--font-han); font-size: 11pt;
+    color: var(--muted); letter-spacing: var(--ls-han-wide);
+    border-top: 1px solid var(--rule); padding-top: var(--sp-4);
+  }
+
+  @media print {
+    body { background: white; padding: 0; }
+    .page { box-shadow: none; margin: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ PAGE 1 — COVER ============ -->
+<div class="page">
+  <div class="grade-stamp">STANDARD</div>
+  <div class="cover">
+    <div>
+      <div class="han-top">正 通 命 理 硏 究 所</div>
+      <div style="margin-top: 56px;">
+        <div class="main-title">
+          흔들릴 때,<br>
+          매달 1일에 도착하는<br>
+          <span class="accent">나침반</span>.
+        </div>
+        <div class="sub-title">결정해야 할 한 달, 당신의 좌표를 짚어드립니다.</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="name-block">
+        <div class="name">李 瑞 姸 님</div>
+        <div class="month">2026 · 7월의 나침반</div>
+      </div>
+
+      <div class="pillars">
+        <div class="pillar"><div class="label">年</div><div class="han-pair">庚<br>午</div></div>
+        <div class="pillar"><div class="label">月</div><div class="han-pair">己<br>卯</div></div>
+        <div class="pillar"><div class="label">日</div><div class="han-pair day">戊<br>辰</div></div>
+        <div class="pillar"><div class="label">時</div><div class="han-pair">丁<br>巳</div></div>
+      </div>
+
+      <div class="seal">
+        正通命理硏究所 編
+        <span class="red">月運 七月</span>
+      </div>
+    </div>
+  </div>
+  <div class="page-num">B · STANDARD</div>
+</div>
+
+
+<!-- ============ PAGE 2 — INTRO ============ -->
+<div class="page">
+  <div class="brand-mark">正 通<span class="ko">명리연구소</span></div>
+
+  <div class="chap-num">Chapter · 01</div>
+  <div class="section-bar">
+    <div class="han">入 月 之 序</div>
+    <div class="title">이번 달, 당신의 입구</div>
+    <div class="en-label">2026.07 · INTRO</div>
+  </div>
+
+  <div class="intro-grid">
+    <div>
+      <div class="intro-block">
+        <h3>2026년 7월, 무슨 달인가</h3>
+        <p>
+          7월의 한자는 <span class="han-inline">己未月(기미월)</span>입니다.
+          소서(小暑 · 7월 7일)에서 대서(大暑 · 7월 22일)로 흐르는, 더위가 가장 두꺼워지는 시기.
+          오행으로는 <span class="han-inline">土</span>의 기운이 한 해 중 가장 짙어지는 한 달입니다.
+        </p>
+        <p>
+          여름 한가운데이지만, 명리에서는 이 시기가 <strong>"멈춤이 자라남이 되는 달"</strong>로 풀이됩니다.
+          밖으로 뻗기보다, 안쪽으로 자리 잡는 시기입니다.
+        </p>
+      </div>
+
+      <div class="intro-block">
+        <h3>이서연 님의 일간과 이번 달</h3>
+        <p>
+          이서연 님의 일간은 <span class="han-inline">戊土(무토)</span>— 두꺼운 흙, 산과 언덕의 기운입니다.
+          본래 신강한 사주에 이번 달이 또 한 번 <strong>土</strong>로 보강되니, 일간은 <strong>두 배로 두꺼워지는 한 달</strong>입니다.
+        </p>
+        <p>
+          이런 시기에는 <span class="han-inline">水</span>(자기 약점 보강)와 <span class="han-inline">金</span>(설기, 균형)의 도움이 필요합니다.
+          동시에 <span class="han-inline">卯未 반합</span>이 작동하여 본인의 약한 관성(직업·관계 정립)이 한 차례 강화됩니다.
+        </p>
+      </div>
+    </div>
+
+    <div>
+      <div class="intro-block">
+        <h3>오행 균형 그래프</h3>
+        <div class="yin-yang-label">본인 사주 분포</div>
+        <div class="yin-yang-bar">
+          <div class="seg-fire" style="width: 30%;">火 30</div>
+          <div class="seg-earth" style="width: 42%;">土 42</div>
+          <div class="seg-wood" style="width: 12%;">木 12</div>
+          <div class="seg-metal" style="width: 12%;">金 12</div>
+          <div class="seg-empty" style="width: 4%;">水 4</div>
+        </div>
+
+        <div class="yin-yang-label">7월 (己未月) 가산 후</div>
+        <div class="yin-yang-bar">
+          <div class="seg-fire" style="width: 26%;">火 26</div>
+          <div class="seg-earth" style="width: 52%;">土 52</div>
+          <div class="seg-wood" style="width: 12%;">木 12</div>
+          <div class="seg-metal" style="width: 8%;">金 8</div>
+          <div class="seg-empty" style="width: 2%;">水 2</div>
+        </div>
+
+        <p style="margin-top: 16px; font-size: 10pt; color: var(--ink-soft); line-height: 1.85; letter-spacing: var(--ls-kr);">
+          <strong style="color: var(--accent); font-family: var(--font-han); letter-spacing: var(--ls-han-tight);">水가 거의 사라지는 한 달.</strong>
+          보강 색·향·식물로 받쳐주시기 바랍니다.
+        </p>
+      </div>
+
+      <div class="month-meta">
+        <div class="row"><div class="k">월 간 지</div><div class="v">己未月 (己土 · 未土)</div></div>
+        <div class="row"><div class="k">절 기</div><div class="v">小暑(7/7) → 大暑(7/22)</div></div>
+        <div class="row"><div class="k">일간 변화</div><div class="v">戊土 → 더 강해짐 (신강 심화)</div></div>
+        <div class="row"><div class="k">용신 / 희신</div><div class="v">水(용) · 金(희)</div></div>
+        <div class="row"><div class="k">활성 십성</div><div class="v">비겁 · 관성(반합)</div></div>
+        <div class="row"><div class="k">월 슬로건</div><div class="v">"멈춤이 자라남이 된다"</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-num">— 02 —</div>
+  <div class="footer-line"><span class="han">入月之序</span>The Gate of the Month</div>
+</div>
+
+
+<!-- ============ PAGE 3 — LEAD ============ -->
+<div class="page">
+  <div class="brand-mark">正 通<span class="ko">명리연구소</span></div>
+
+  <div class="chap-num">Chapter · 02</div>
+  <div class="section-bar">
+    <div class="han">月 之 座 標</div>
+    <div class="title">이번 달, 당신이 서 있는 자리</div>
+    <div class="en-label">2026.07 · LEAD</div>
+  </div>
+
+  <div class="lead">
+    <p>
+      己未月은 戊土 일간이 <span class="accent">한 번 더 두꺼워지는</span> 달입니다.
+      움직임보다 다지기, 새로운 것보다 미뤄둔 것의 정리가 어울립니다.
+    </p>
+    <p>급한 결정을 미루고, 사람을 한 명씩 들여다보세요.</p>
+  </div>
+
+  <div class="keywords">
+    <div class="kw"><div class="num">KEY · 01</div><div class="word">정 리</div><div class="han">整 理</div></div>
+    <div class="kw"><div class="num">KEY · 02</div><div class="word">점 검</div><div class="han">點 檢</div></div>
+    <div class="kw"><div class="num">KEY · 03</div><div class="word">기 다 림</div><div class="han">待 約</div></div>
+  </div>
+
+  <div class="do-dont">
+    <div class="box good">
+      <div class="head">◯  해도 되는 일</div>
+      <ul>
+        <li>미뤄둔 자료·옷장·서류 정리</li>
+        <li>오래된 인연에 안부 한 통</li>
+        <li>건강 검진·치아·시력 점검</li>
+        <li>저축·연금 등 재무 점검</li>
+      </ul>
+    </div>
+    <div class="box warn">
+      <div class="head">△  주의해야 할 일</div>
+      <ul>
+        <li>큰 계약·부동산 매수</li>
+        <li>감정에 떠밀린 통보·고백</li>
+        <li>처음 만난 사람과의 시작</li>
+        <li>충동적 이직 결정</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="flow">
+    <div class="label">한 달 의 큰 흐 름</div>
+    <div class="quote">"기다림이 곧 추진력이 되는 한 달."</div>
+  </div>
+
+  <div class="page-num">— 03 —</div>
+  <div class="footer-line"><span class="han">月之座標</span>The Compass of the Month</div>
+</div>
+
+
+<!-- ============ PAGE 4 — BIG DAY FULL ============ -->
+<div class="page">
+  <div class="brand-mark">正 通<span class="ko">명리연구소</span></div>
+
+  <div class="chap-num">Chapter · 03</div>
+  <div class="section-bar">
+    <div class="han">決 之 一 日</div>
+    <div class="title">결정의 한 날</div>
+    <div class="en-label">2026.07 · BIG DAY</div>
+  </div>
+
+  <div class="bigday-fullpage">
+    <div class="bigday-pretitle">이 번 달, 단 하 루</div>
+    <div class="bigday-date">18</div>
+    <div class="bigday-month">2026년 7월</div>
+    <div class="bigday-day">토 요 일</div>
+    <div class="bigday-han">庚 申 日</div>
+
+    <div class="bigday-detail">
+      <div class="row">
+        <div class="label">명리 근거</div>
+        <div class="val">일간 戊土와 庚申의 토생금(土生金) 설기, 庚午 年柱와 申子辰 삼합. 30일 중 합·생이 가장 강한 1일.</div>
+      </div>
+      <div class="row">
+        <div class="label">추천 활동</div>
+        <div class="val">면접 · 계약 · 발표 · 중요한 대화 · 고백 · 협상</div>
+      </div>
+      <div class="row">
+        <div class="label">유리한 시간</div>
+        <div class="val">오전 09:00 – 11:00 (巳時) · 오후 15:00 – 17:00 (申時)</div>
+      </div>
+      <div class="row">
+        <div class="label">방 위</div>
+        <div class="val">서쪽 · 서남쪽 — 미팅·이동 시 우선 방향</div>
+      </div>
+      <div class="row">
+        <div class="label">한 줄 조언</div>
+        <div class="val">고민해온 한 가지를 이날 입 밖으로 꺼내십시오.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-num">— 04 —</div>
+  <div class="footer-line"><span class="han">決之一日</span>The Decisive Day</div>
+</div>
+
+
+<!-- ============ PAGE 5 — CALENDAR ============ -->
+<div class="page">
+  <div class="brand-mark">正 通<span class="ko">명리연구소</span></div>
+
+  <div class="chap-num">Chapter · 04</div>
+  <div class="section-bar">
+    <div class="han">三 十 日 辰</div>
+    <div class="title">한 달의 길, 미리 보기</div>
+    <div class="en-label">2026.07 · CALENDAR</div>
+  </div>
+
+  <table class="calendar">
+    <thead><tr><th>日</th><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="gray"></td><td class="gray"></td><td class="gray"></td>
+        <td class="good"><div class="date">1</div><div class="gapja">癸卯</div><span class="mark">◯</span></td>
+        <td class="warn"><div class="date">2</div><div class="gapja">甲辰</div><span class="mark">△</span></td>
+        <td class="good"><div class="date">3</div><div class="gapja">乙巳</div><span class="mark">◯</span></td>
+        <td class="warn"><div class="date">4</div><div class="gapja">丙午</div><span class="mark">△</span></td>
+      </tr>
+      <tr>
+        <td class="sun warn"><div class="date">5</div><div class="gapja">丁未</div><span class="mark">△</span></td>
+        <td class="good"><div class="date">6</div><div class="gapja">戊申</div><span class="mark">◯</span></td>
+        <td class="good"><div class="date">7</div><div class="gapja">己酉</div><span class="mark">◯</span></td>
+        <td class="warn"><div class="date">8</div><div class="gapja">庚戌</div><span class="mark">△</span></td>
+        <td class="good"><div class="date">9</div><div class="gapja">辛亥</div><span class="mark">◯</span></td>
+        <td class="good"><div class="date">10</div><div class="gapja">壬子</div><span class="mark">◯</span></td>
+        <td class="warn"><div class="date">11</div><div class="gapja">癸丑</div><span class="mark">△</span></td>
+      </tr>
+      <tr>
+        <td class="sun warn"><div class="date">12</div><div class="gapja">甲寅</div><span class="mark">△</span></td>
+        <td class="warn"><div class="date">13</div><div class="gapja">乙卯</div><span class="mark">△</span></td>
+        <td class="good"><div class="date">14</div><div class="gapja">丙辰</div><span class="mark">◯</span></td>
+        <td class="warn"><div class="date">15</div><div class="gapja">丁巳</div><span class="mark">△</span></td>
+        <td class="warn"><div class="date">16</div><div class="gapja">戊午</div><span class="mark">△</span></td>
+        <td class="good"><div class="date">17</div><div class="gapja">己未</div><span class="mark">◯</span></td>
+        <td class="bigday"><div class="date">18</div><div class="gapja">庚申</div><span class="star">★</span></td>
+      </tr>
+      <tr>
+        <td class="sun good"><div class="date">19</div><div class="gapja">辛酉</div><span class="mark">◯</span></td>
+        <td class="good"><div class="date">20</div><div class="gapja">壬戌</div><span class="mark">◯</span></td>
+        <td class="good"><div class="date">21</div><div class="gapja">癸亥</div><span class="mark">◯</span></td>
+        <td class="good"><div class="date">22</div><div class="gapja">甲子</div><span class="mark">◯</span></td>
+        <td class="warn"><div class="date">23</div><div class="gapja">乙丑</div><span class="mark">△</span></td>
+        <td class="warn"><div class="date">24</div><div class="gapja">丙寅</div><span class="mark">△</span></td>
+        <td class="warn"><div class="date">25</div><div class="gapja">丁卯</div><span class="mark">△</span></td>
+      </tr>
+      <tr>
+        <td class="sun good"><div class="date">26</div><div class="gapja">戊辰</div><span class="mark">◯</span></td>
+        <td class="warn"><div class="date">27</div><div class="gapja">己巳</div><span class="mark">△</span></td>
+        <td class="good"><div class="date">28</div><div class="gapja">庚午</div><span class="mark">◯</span></td>
+        <td class="good"><div class="date">29</div><div class="gapja">辛未</div><span class="mark">◯</span></td>
+        <td class="good"><div class="date">30</div><div class="gapja">壬申</div><span class="mark">◯</span></td>
+        <td class="good"><div class="date">31</div><div class="gapja">癸酉</div><span class="mark">◯</span></td>
+        <td class="gray"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="legend">
+    <div class="item"><span class="sym" style="color: var(--good);">◯</span> 길일</div>
+    <div class="item"><span class="sym" style="color: var(--warn);">△</span> 주의일</div>
+    <div class="item"><span class="sym" style="color: #C9A14A;">★</span> 결정의 한 날</div>
+  </div>
+
+  <table class="activity-table">
+    <thead><tr><th>추천 활동</th><th>적합한 날짜</th></tr></thead>
+    <tbody>
+      <tr><td>면접 · 발표 · 협상</td><td>18日 (★) · 19, 20, 22日</td></tr>
+      <tr><td>계약 · 서명</td><td>18日 (★) · 20, 21日 (오전)</td></tr>
+      <tr><td>이사 · 큰 이동</td><td>3, 6, 9, 10日 — 18日 이후 피할 것</td></tr>
+      <tr><td>중요한 대화 · 고백</td><td>18日 (★) · 28日 (戊午 → 庚午 同氣)</td></tr>
+      <tr><td>휴식 · 컨디션 회복</td><td>4, 5, 11, 13日</td></tr>
+    </tbody>
+  </table>
+
+  <div class="page-num">— 05 —</div>
+  <div class="footer-line"><span class="han">三十日辰</span>The Thirty-Day Almanac</div>
+</div>
+
+
+<!-- ============ PAGE 6 — 재물운 ============ -->
+<div class="page">
+  <div class="brand-mark">正 通<span class="ko">명리연구소</span></div>
+
+  <div class="chap-num">Chapter · 05</div>
+  <div class="section-bar">
+    <div class="han">財 運</div>
+    <div class="title">이번 달의 재물 흐름</div>
+    <div class="en-label">2026.07 · WEALTH</div>
+  </div>
+
+  <div class="fortune-pretitle">재 물 운 <span class="han">財 之 流</span></div>
+
+  <div class="fortune-summary">
+    <p>이번 달 재성(水)은 <span class="accent">사주 안에서 거의 사라집니다.</span></p>
+    <p>"쌓기"의 달이 아닌 "지키기"의 달. 큰 매수·투자보다는 지출 점검·구독 정리·해묵은 채무 정리에 어울리는 시기입니다.</p>
+  </div>
+
+  <div class="week-grid">
+    <div class="week-card">
+      <div class="wnum">Week · 01</div>
+      <div class="wtitle">7/1 – 7/5</div>
+      <div class="wbody">지난달 카드·구독 내역 점검. 새는 돈부터 막아두세요.</div>
+    </div>
+    <div class="week-card">
+      <div class="wnum">Week · 02</div>
+      <div class="wtitle">7/6 – 7/12</div>
+      <div class="wbody">보험·연금 점검에 적기. 새 가입보다 기존 정비.</div>
+    </div>
+    <div class="week-card">
+      <div class="wnum">Week · 03</div>
+      <div class="wtitle">7/13 – 7/19</div>
+      <div class="wbody">18일(★) 협상·계약 가능. 그 외 큰 결정은 보류.</div>
+    </div>
+    <div class="week-card">
+      <div class="wnum">Week · 04</div>
+      <div class="wtitle">7/20 – 7/31</div>
+      <div class="wbody">받을 돈 정리 시기. 미수금·환급 확인 권장.</div>
+    </div>
+  </div>
+
+  <div class="star-line">
+    <span class="label">금 기</span>
+    <span class="badge warn">부동산 매수</span>
+    <span class="badge warn">주식 큰 진입</span>
+    <span class="badge warn">고가 구독 시작</span>
+  </div>
+  <div class="star-line">
+    <span class="label">권 장</span>
+    <span class="badge good">자동이체 점검</span>
+    <span class="badge good">미수금 회수</span>
+    <span class="badge good">지출 다이어트</span>
+  </div>
+
+  <div class="insight">
+    <strong>이번 달 한 줄 —</strong>
+    7월의 재물은 들어오는 게 아니라 새지 않는 게 중요합니다.
+    지출 한 줄을 줄이는 것이 수익 한 줄을 늘리는 것보다 가치 있는 한 달입니다.
+  </div>
+
+  <div class="page-num">— 06 —</div>
+  <div class="footer-line"><span class="han">財運</span>The Stream of Wealth</div>
+</div>
+
+
+<!-- ============ PAGE 7 — 애정운 ============ -->
+<div class="page">
+  <div class="brand-mark">正 通<span class="ko">명리연구소</span></div>
+
+  <div class="chap-num">Chapter · 06</div>
+  <div class="section-bar">
+    <div class="han">愛 情 運</div>
+    <div class="title">이번 달의 관계 흐름</div>
+    <div class="en-label">2026.07 · LOVE</div>
+  </div>
+
+  <div class="fortune-pretitle">애 정 운 <span class="han">緣 之 結</span></div>
+
+  <div class="fortune-summary">
+    <p>7월은 <span class="accent">卯未 반합</span>이 작동하여 약한 관성이 한 차례 강화되는 한 달.</p>
+    <p>"새 인연의 폭발"보다는 <strong>"있던 관계의 형태가 분명해지는"</strong> 시기입니다. 이서연 님께 7월은 "확인의 한 달"이 될 가능성이 큽니다.</p>
+  </div>
+
+  <div class="week-grid">
+    <div class="week-card">
+      <div class="wnum">Week · 01</div>
+      <div class="wtitle">7/1 – 7/5</div>
+      <div class="wbody">오래된 인연에 안부 한 통. 먼저 손 내미는 쪽이 유리합니다.</div>
+    </div>
+    <div class="week-card">
+      <div class="wnum">Week · 02</div>
+      <div class="wtitle">7/6 – 7/12</div>
+      <div class="wbody">가까운 관계 한 명과 깊은 대화. 쌓아둔 한 마디 꺼내십시오.</div>
+    </div>
+    <div class="week-card">
+      <div class="wnum">Week · 03</div>
+      <div class="wtitle">7/13 – 7/19</div>
+      <div class="wbody"><strong>18일(★)</strong>은 "관계의 한 마디"에 가장 강한 날. 고민해온 말, 이날 꺼내십시오.</div>
+    </div>
+    <div class="week-card">
+      <div class="wnum">Week · 04</div>
+      <div class="wtitle">7/20 – 7/31</div>
+      <div class="wbody">대화 결과를 천천히 받아들이는 주. 급한 후속 결정은 8월로.</div>
+    </div>
+  </div>
+
+  <div class="star-line">
+    <span class="label">권 장</span>
+    <span class="badge good">3년 이상 인연 점검</span>
+    <span class="badge good">가족 안부</span>
+    <span class="badge good">관계 정의 대화</span>
+  </div>
+  <div class="star-line">
+    <span class="label">금 기</span>
+    <span class="badge warn">처음 만남 약속</span>
+    <span class="badge warn">감정 폭발 통보</span>
+    <span class="badge warn">SNS 상의 결단</span>
+  </div>
+
+  <div class="insight">
+    <strong>이번 달 한 줄 —</strong>
+    새 인연을 찾는 한 달이 아니라, <strong>지금 곁에 있는 사람과의 거리를 정확히 재는 한 달</strong>입니다. 결정은 18일 한 번이면 충분합니다.
+  </div>
+
+  <div class="page-num">— 07 —</div>
+  <div class="footer-line"><span class="han">愛情運</span>The Knot of Bonds</div>
+</div>
+
+
+<!-- ============ PAGE 8 — 일·직업운 ============ -->
+<div class="page">
+  <div class="brand-mark">正 通<span class="ko">명리연구소</span></div>
+
+  <div class="chap-num">Chapter · 07</div>
+  <div class="section-bar">
+    <div class="han">職 運</div>
+    <div class="title">이번 달의 일 · 직업 흐름</div>
+    <div class="en-label">2026.07 · WORK</div>
+  </div>
+
+  <div class="fortune-pretitle">일 · 직 업 운 <span class="han">職 之 軌</span></div>
+
+  <div class="fortune-summary">
+    <p>관성(木)이 卯未 반합으로 살아나는 달.</p>
+    <p><span class="accent">이직보다 현 자리에서의 책임이 한 단계 분명해지는 시기</span>입니다. 7월은 새 길보다 지금 길을 두껍게 다지는 데에 어울립니다.</p>
+  </div>
+
+  <div class="week-grid">
+    <div class="week-card">
+      <div class="wnum">Week · 01</div>
+      <div class="wtitle">7/1 – 7/5</div>
+      <div class="wbody">지난 분기 업무 정리·기록. 성과의 형태를 다듬으세요.</div>
+    </div>
+    <div class="week-card">
+      <div class="wnum">Week · 02</div>
+      <div class="wtitle">7/6 – 7/12</div>
+      <div class="wbody">상사·동료와 정렬 미팅. 혼자 안고 있던 책임 분담.</div>
+    </div>
+    <div class="week-card">
+      <div class="wnum">Week · 03</div>
+      <div class="wtitle">7/13 – 7/19</div>
+      <div class="wbody"><strong>18일(★)</strong> 면접·발표·협상 강력 추천. 오랜 제안 받기 가능.</div>
+    </div>
+    <div class="week-card">
+      <div class="wnum">Week · 04</div>
+      <div class="wtitle">7/20 – 7/31</div>
+      <div class="wbody">결정 이후의 실행 주. 새 책임에 적응하기.</div>
+    </div>
+  </div>
+
+  <div class="star-line">
+    <span class="label">권 장</span>
+    <span class="badge good">분기 성과 정리</span>
+    <span class="badge good">책임 범위 재정의</span>
+    <span class="badge good">18일 협상</span>
+  </div>
+  <div class="star-line">
+    <span class="label">금 기</span>
+    <span class="badge warn">충동 이직 통보</span>
+    <span class="badge warn">새 프로젝트 동시 추가</span>
+    <span class="badge warn">계약서 미정독 서명</span>
+  </div>
+
+  <div class="insight">
+    <strong>이번 달 한 줄 —</strong>
+    7월은 "옮기는 달"이 아니라 <strong>"자리의 무게를 늘리는 달"</strong>입니다. 큰 결정의 신호가 오면 18일에 맞추고, 그 외에는 천천히 준비하세요.
+  </div>
+
+  <div class="page-num">— 08 —</div>
+  <div class="footer-line"><span class="han">職運</span>The Track of Work</div>
+</div>
+
+
+<!-- ============ PAGE 9 — 건강 ============ -->
+<div class="page">
+  <div class="brand-mark">正 通<span class="ko">명리연구소</span></div>
+
+  <div class="chap-num">Chapter · 08</div>
+  <div class="section-bar">
+    <div class="han">健 康</div>
+    <div class="title">이번 달의 몸과 컨디션</div>
+    <div class="en-label">2026.07 · HEALTH</div>
+  </div>
+
+  <div class="fortune-pretitle">건 강 컨 디 션 <span class="han">五 行 之 平</span></div>
+
+  <div class="fortune-summary">
+    <p>水가 가장 약해지는 한 달.</p>
+    <p><span class="accent">신장·방광·혈류·수분 균형</span>에 대한 주의가 필요합니다. 무더위와 일간 강화가 겹쳐 몸이 두꺼워지는 시기 — 가볍게 흘려보내십시오.</p>
+  </div>
+
+  <div class="week-grid">
+    <div class="week-card">
+      <div class="wnum">Week · 01</div>
+      <div class="wtitle">7/1 – 7/5</div>
+      <div class="wbody">하루 1.5L 수분. 늦은 음주 자제.</div>
+    </div>
+    <div class="week-card">
+      <div class="wnum">Week · 02</div>
+      <div class="wtitle">7/6 – 7/12</div>
+      <div class="wbody">7~10일 사이 컨디션 저점. 무리한 운동·약속 줄이기.</div>
+    </div>
+    <div class="week-card">
+      <div class="wnum">Week · 03</div>
+      <div class="wtitle">7/13 – 7/19</div>
+      <div class="wbody">BIG DAY 전 충분한 수면. 17~18일은 컨디션 정점.</div>
+    </div>
+    <div class="week-card">
+      <div class="wnum">Week · 04</div>
+      <div class="wtitle">7/20 – 7/31</div>
+      <div class="wbody">22~25일 다시 저점. 가벼운 스트레칭 권장.</div>
+    </div>
+  </div>
+
+  <div class="star-line">
+    <span class="label">점 검</span>
+    <span class="badge good">신장 · 방광</span>
+    <span class="badge good">소화기</span>
+    <span class="badge good">수면 패턴</span>
+  </div>
+  <div class="star-line">
+    <span class="label">금 기</span>
+    <span class="badge warn">과음 · 야식</span>
+    <span class="badge warn">무리한 다이어트</span>
+    <span class="badge warn">늦은 시간 결정</span>
+  </div>
+
+  <div class="insight">
+    <strong>이번 달 한 줄 —</strong>
+    戊土가 두꺼워지는 한 달, 몸도 무거워지기 쉽습니다.
+    <strong>물 · 걷기 · 침묵</strong>, 이 세 가지만 챙기면 7월의 몸은 충분합니다.
+  </div>
+
+  <div class="page-num">— 09 —</div>
+  <div class="footer-line"><span class="han">健康</span>The Balance of Five Elements</div>
+</div>
+
+
+<!-- ============ PAGE 10 — 주차별 행동 가이드 ============ -->
+<div class="page">
+  <div class="brand-mark">正 通<span class="ko">명리연구소</span></div>
+
+  <div class="chap-num">Chapter · 09</div>
+  <div class="section-bar">
+    <div class="han">週 別 行 動</div>
+    <div class="title">한 달의 다섯 주, 다섯 모드</div>
+    <div class="en-label">2026.07 · WEEKLY ACTION</div>
+  </div>
+
+  <div class="week-actions">
+    <div class="week-action-row">
+      <div class="wnum">01</div>
+      <div>
+        <div class="col-title">Mode</div>
+        <div class="date-range">7/1 – 7/5</div>
+        <div class="mode-name">정 리 모 드</div>
+        <div class="mode-desc">묵은 것 비우기</div>
+      </div>
+      <div>
+        <div class="col-title">Do</div>
+        <ul>
+          <li>지난 분기 정산</li>
+          <li>서류·옷장 정리</li>
+          <li>구독·자동결제 점검</li>
+        </ul>
+      </div>
+      <div>
+        <div class="col-title">Don't</div>
+        <ul>
+          <li>새 결제·계약</li>
+          <li>충동 통보</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="week-action-row">
+      <div class="wnum">02</div>
+      <div>
+        <div class="col-title">Mode</div>
+        <div class="date-range">7/6 – 7/12</div>
+        <div class="mode-name">점 검 모 드</div>
+        <div class="mode-desc">사람과 자리 살피기</div>
+      </div>
+      <div>
+        <div class="col-title">Do</div>
+        <ul>
+          <li>오래된 관계 안부</li>
+          <li>업무 정렬 미팅</li>
+          <li>보험·연금 점검</li>
+        </ul>
+      </div>
+      <div>
+        <div class="col-title">Don't</div>
+        <ul>
+          <li>처음 만남 약속</li>
+          <li>야간 큰 결정</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="week-action-row">
+      <div class="wnum">03</div>
+      <div>
+        <div class="col-title">Mode</div>
+        <div class="date-range">7/13 – 7/19</div>
+        <div class="mode-name">결 정 모 드 ★</div>
+        <div class="mode-desc">18일(庚申)에 입 밖으로</div>
+      </div>
+      <div>
+        <div class="col-title">Do</div>
+        <ul>
+          <li>18일 협상·발표</li>
+          <li>고민 한 가지 통보</li>
+          <li>중요한 대화 진행</li>
+        </ul>
+      </div>
+      <div>
+        <div class="col-title">Don't</div>
+        <ul>
+          <li>15·16일 큰 결정</li>
+          <li>충동적 후속 조치</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="week-action-row">
+      <div class="wnum">04</div>
+      <div>
+        <div class="col-title">Mode</div>
+        <div class="date-range">7/20 – 7/26</div>
+        <div class="mode-name">실 행 모 드</div>
+        <div class="mode-desc">결정 후 천천히 굳히기</div>
+      </div>
+      <div>
+        <div class="col-title">Do</div>
+        <ul>
+          <li>새 책임에 적응</li>
+          <li>관계 정의 다듬기</li>
+          <li>가벼운 운동·휴식</li>
+        </ul>
+      </div>
+      <div>
+        <div class="col-title">Don't</div>
+        <ul>
+          <li>또 다른 큰 결정</li>
+          <li>해명·뒷말</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="week-action-row">
+      <div class="wnum">05</div>
+      <div>
+        <div class="col-title">Mode</div>
+        <div class="date-range">7/27 – 7/31</div>
+        <div class="mode-name">마 무 리 모 드</div>
+        <div class="mode-desc">8월 준비</div>
+      </div>
+      <div>
+        <div class="col-title">Do</div>
+        <ul>
+          <li>한 달 회고 기록</li>
+          <li>8월 큰 일정 점검</li>
+        </ul>
+      </div>
+      <div>
+        <div class="col-title">Don't</div>
+        <ul>
+          <li>월말 충동 결제</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-num">— 10 —</div>
+  <div class="footer-line"><span class="han">週別行動</span>The Five Weeks</div>
+</div>
+
+
+<!-- ============ PAGE 11 — 보강 오행 ============ -->
+<div class="page">
+  <div class="brand-mark">正 通<span class="ko">명리연구소</span></div>
+
+  <div class="chap-num">Chapter · 10</div>
+  <div class="section-bar">
+    <div class="han">補 强 五 行</div>
+    <div class="title">당신의 한 달을 받쳐줄 것들</div>
+    <div class="en-label">2026.07 · SUPPORT</div>
+  </div>
+
+  <div class="support-lead">
+    戊土 일간이 己未月에 한 번 더 두꺼워지므로, 사라진 <strong>水</strong>(약점 보강)와 부드러워진 <strong>金</strong>(설기)을 일상의 색·숫자·향으로 받쳐줍니다.
+  </div>
+
+  <div class="grid-3">
+    <div class="sub-card">
+      <div class="icon">🎨</div>
+      <div class="title">이번 달 보강 오행 색</div>
+      <div class="han">水 · 金</div>
+      <div class="color-chips">
+        <div class="chip navy"></div>
+        <div class="chip silver"></div>
+      </div>
+      <div class="body">
+        <div class="body-row"><strong>짙은 청색</strong><br>옷 · 가방 · 노트의 메인 톤</div>
+        <div class="body-row"><strong>은백 · 화이트</strong><br>액세서리 · 신발 포인트</div>
+        <div class="footnote">水(약점 보강) + 金(설기 균형)</div>
+      </div>
+    </div>
+
+    <div class="sub-card">
+      <div class="icon">🔢</div>
+      <div class="title">강화 천간·지지 숫자</div>
+      <div class="han">庚 辛 · 子 亥</div>
+      <div class="nums-sm">
+        <div class="num-box-sm">1</div>
+        <div class="num-box-sm">8</div>
+        <div class="num-box-sm">12</div>
+      </div>
+      <div class="body">
+        <div class="body-row"><strong>1</strong> — 子(水) 매핑</div>
+        <div class="body-row"><strong>8</strong> — 辛(金) 매핑</div>
+        <div class="body-row"><strong>12</strong> — 亥(水) 매핑</div>
+        <div class="footnote">비밀번호 끝자리 · 좌석 · 번호 선택 참고</div>
+      </div>
+    </div>
+
+    <div class="sub-card">
+      <div class="icon">🌿</div>
+      <div class="title">일간 보강 향·식물</div>
+      <div class="han">沈 香 · 蓮 花</div>
+      <div class="body">
+        <div class="body-row"><strong>침향(沈香)</strong><br>차 · 향초 · 디퓨저</div>
+        <div class="body-row"><strong>연꽃</strong><br>화병 · 자수 소품</div>
+        <div class="body-row"><strong>박하</strong><br>차 · 아로마 (선택)</div>
+        <div class="footnote">水 오행 향료를 메인으로</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight">
+    <strong>활용 팁 —</strong>
+    이번 달, 외출 전 거울 앞에 한 가지만 추가하십시오.
+    짙은 청색 셔츠, 은빛 펜, 손목에 닿는 연꽃 향 — 작은 보강이 한 달을 다르게 만듭니다.
+  </div>
+
+  <div class="page-num">— 11 —</div>
+  <div class="footer-line"><span class="han">補强五行</span>The Supportive Elements</div>
+</div>
+
+
+<!-- ============ PAGE 12 — CLOSING ============ -->
+<div class="page">
+  <div class="brand-mark">正 通<span class="ko">명리연구소</span></div>
+
+  <div class="chap-num">Chapter · 11 · Closing</div>
+  <div class="section-bar">
+    <div class="han">月 末 一 句</div>
+    <div class="title">이번 달의 한 문장</div>
+    <div class="en-label">2026.07 · CLOSING</div>
+  </div>
+
+  <div class="closing-wrap">
+    <div class="quote-card">
+      <div class="han-quote">知 止 不 殆<br>知 足 不 辱</div>
+      <div class="kor-quote">멈출 줄 알면 위태롭지 않고,<br>만족할 줄 알면 욕되지 않는다.</div>
+      <div class="source">道德經 · 第 四 十 四 章</div>
+      <div class="interp">
+        7월의 戊土 일간은 굳이 더 쌓을 필요가 없는 자리에 서 있습니다.
+        멈춤은 후퇴가 아니라 자리 잡기입니다.
+        이서연 님에게 이번 달의 정리는 다음 달의 출발선이 됩니다.
+      </div>
+    </div>
+
+    <div class="next-month">
+      <div class="label">다 음 달 예 고</div>
+      <div class="body">
+        <strong>2026년 8월</strong>은 丙申月로 접어들며 庚金의 기운이 두 배로 강해집니다.
+        7월에 다져둔 것들이 8월의 결정과 만남을 통해 형태를 갖춥니다. 한 달의 결과를 기대해도 좋습니다.
+      </div>
+    </div>
+
+    <div class="qna">
+      <div class="label">Q &nbsp; & &nbsp; A &nbsp; 안 내</div>
+      <div class="body">
+        이번 달 보고서에 대한 추가 질문은 발송된 메일 회신 또는 카카오톡 채널을 통해 받습니다.
+        한 달 1회, 무료로 보조 해설을 받아보실 수 있습니다.
+      </div>
+    </div>
+
+    <div class="lab-words">正 通 命 理 硏 究 所 一 同</div>
+  </div>
+
+  <div class="page-num">— 12 —</div>
+  <div class="footer-line"><span class="han">月末一句</span>The Final Word</div>
+</div>
+
+</body>
+</html>
