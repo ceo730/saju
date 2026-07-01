@@ -59,7 +59,7 @@ const YY_JI=["양","음","양","음","양","음","양","음","양","음","양","
 const CH_HJ=["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"];
 const JI_HJ=["子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"];
 const LD=[0x04bd8,0x04ae0,0x0a570,0x054d5,0x0d260,0x0d950,0x16554,0x056a0,0x09ad0,0x055d2,0x04ae0,0x0a5b6,0x0a4d0,0x0d250,0x0da95,0x0b550,0x056a0,0x0ada2,0x095d0,0x04bb7,0x049b0,0x0a4b0,0x0b4b5,0x06a90,0x0ad40,0x0bb54,0x02b60,0x095b0,0x05372,0x04970,0x06566,0x0e4a0,0x0ea50,0x16a95,0x05b50,0x02b60,0x18ae3,0x092e0,0x1c8d7,0x0c950,0x0d4a0,0x1d8a6,0x0b690,0x056d0,0x125b4,0x025d0,0x092d0,0x0d2b2,0x0a950,0x0d557,0x0b4a0,0x0b550,0x15555,0x04db0,0x025b0,0x18573,0x052b0,0x0a9b8,0x06950,0x06aa0,0x0aea6,0x0ab50,0x04b60,0x0aae4,0x0a570,0x05270,0x07263,0x0d950,0x06b57,0x056a0,0x09ad0,0x04dd5,0x04ae0,0x0a4e0,0x0d4d4,0x0d250,0x0d598,0x0b540,0x0d6a0,0x195a6,0x095b0,0x049b0,0x0a9b4,0x0a4b0,0x0b27a,0x06a50,0x06d40,0x0b756,0x02b60,0x095b0,0x04b75,0x04970,0x064b0,0x074a3,0x0ea50,0x06d98,0x05ad0,0x02b60,0x096e5,0x092e0,0x0c960,0x0e954,0x0d4a0,0x0da50,0x07552,0x056c0,0x0abb7,0x025d0,0x092d0,0x0cab5,0x0a950,0x0b4a0,0x1b4a3,0x0b550,0x055d9,0x04ba0,0x0a5b0,0x05575,0x052b0,0x0a950,0x0b954,0x06aa0,0x0ad50,0x06b52,0x04b60,0x0a6e6,0x0a570,0x05270,0x06a65,0x0d930,0x05aa0,0x0b6a3,0x096d0,0x04afb,0x04ae0,0x0a4d0,0x1d0d6,0x0d250,0x0d520,0x0dd45,0x0b6a0,0x096d0,0x055b2,0x049b0,0x0a577,0x0a4b0,0x0b250,0x1b255,0x06d40,0x0ada0,0x18b43,0x09370,0x049f8,0x04970,0x064b0,0x168a6,0x0ea50,0x06b20,0x1a6c4,0x0aae0,0x092e0,0x0d2e3,0x0c960,0x0d557,0x0d4a0,0x0da50,0x05d55,0x056a0,0x0a6d0,0x055d4,0x052d0,0x0a9b8,0x0a950,0x0b4a0,0x0b6a6,0x0ad50,0x055a0,0x0aba4,0x0a5b0,0x052b0,0x0b273,0x06930,0x07337,0x06aa0,0x0ad50,0x14b55,0x04b60,0x0a570,0x054e4,0x0d160,0x0e968,0x0d520,0x0daa0,0x16aa6,0x056d0,0x04ae0,0x0a9d4,0x0a4d0,0x0d150,0x0f252];
-function lunarToSolar(ly,lm,ld,isLeap){const base=new Date(1900,0,31);let offset=0;for(let y=1900;y<ly;y++){const yd=LD[y-1900];let t=0;for(let i=0;i<12;i++)t+=(yd&(0x8000>>i))?30:29;if(yd&0xf)t+=(yd&0x10000)?30:29;offset+=t;}const yd=LD[ly-1900];const leapM=yd&0xf;for(let m=1;m<lm;m++){offset+=(yd&(0x8000>>(m-1)))?30:29;if(m===leapM)offset+=(yd&0x10000)?30:29;}if(isLeap&&leapM===lm){offset+=(yd&(0x8000>>(lm-1)))?30:29;}offset+=ld-1;const r=new Date(base.getTime()+offset*86400000);return{year:r.getFullYear(),month:r.getMonth()+1,day:r.getDate()};}
+function lunarToSolar(ly,lm,ld,isLeap){const base=Date.UTC(1900,0,31);let offset=0;for(let y=1900;y<ly;y++){const yd=LD[y-1900];let t=0;for(let i=0;i<12;i++)t+=(yd&(0x8000>>i))?30:29;if(yd&0xf)t+=(yd&0x10000)?30:29;offset+=t;}const yd=LD[ly-1900];const leapM=yd&0xf;for(let m=1;m<lm;m++){offset+=(yd&(0x8000>>(m-1)))?30:29;if(m===leapM)offset+=(yd&0x10000)?30:29;}if(isLeap&&leapM===lm){offset+=(yd&(0x8000>>(lm-1)))?30:29;}offset+=ld-1;const r=new Date(base+offset*86400000);return{year:r.getUTCFullYear(),month:r.getUTCMonth()+1,day:r.getUTCDate()};}
 function solarLon(jd){const T=(jd-2451545)/36525;const L0=280.46646+36000.76983*T+.0003032*T*T;const M=357.52911+35999.05029*T-.0001537*T*T;const Mr=M*Math.PI/180%(2*Math.PI);const eq=(1.914602-.004817*T)*Math.sin(Mr)+.019993*Math.sin(2*Mr)+.000289*Math.sin(3*Mr);return((L0+eq)%360+360)%360;}
 function toJD(y,m,d){if(m<=2){y--;m+=12;}const A=Math.floor(y/100),B=2-A+Math.floor(A/4);return Math.floor(365.25*(y+4716))+Math.floor(30.6001*(m+1))+d+.5+B-1524.5;}
 const JB=[[285,1],[315,2],[345,3],[15,4],[45,5],[75,6],[105,7],[135,8],[165,9],[195,10],[225,11],[255,0]];
@@ -75,7 +75,7 @@ function calcSaju(y,m,d,h,mn){
   const a=Math.floor((14-m)/12),jy=y+4800-a,jm=m+12*a-3;
   const jdn=d+Math.floor((153*jm+2)/5)+365*jy+Math.floor(jy/4)-Math.floor(jy/100)+Math.floor(jy/400)-32045;
   const dI=((jdn+49)%60+60)%60,dG=dI%10,dJ=dI%12;
-  let hG=0,hJ=0;if(h!==null){let tm=h*60+(mn||0)-27;if(tm<0)tm+=1440;const eH=tm/60;hJ=Math.floor(((eH+1)%24)/2)%12;hG=((dG%5)*2+hJ)%10;}
+  let hG=0,hJ=0;if(h!==null){let tm=h*60+(mn||0);if(tm<0)tm+=1440;const eH=tm/60;hJ=Math.floor(((eH+1)%24)/2)%12;hG=((dG%5)*2+hJ)%10;}
   const oh={"목":0,"화":0,"토":0,"금":0,"수":0};
   [yG,mG,dG].forEach(g=>oh[OHENG_GAN[g]]++);[yJ,mJ,dJ].forEach(j=>oh[OHENG_JI[j]]++);
   if(h!==null){oh[OHENG_GAN[hG]]++;oh[OHENG_JI[hJ]]++;}
@@ -93,8 +93,26 @@ function calcSaju(y,m,d,h,mn){
     hour:h!==null?{gan:CHEONGAN[hG],ji:JIJI[hJ],ohGan:OHENG_GAN[hG],ohJi:OHENG_JI[hJ],yyGan:YY_GAN[hG],yyJi:YY_JI[hJ]}:null,
     ilgan:CHEONGAN[dG],oheng:oh,hanja,pillars,
     ilganIdx:dG,
-  };
+   };
 }
+
+// ══ 시간 정규화 (A안: 동경135° 표준시 기준 통일) ══
+// 한국 서머타임 구간 — IANA Asia/Seoul 실측, 벽시계 KST 기준 [sY,sMo,sD,sH, eY,eMo,eD,eH] (반열림 start<=t<end)
+const DST_WINDOWS=[[1948,6,1,0,1948,9,13,0],[1949,4,3,0,1949,9,11,0],[1950,4,1,0,1950,9,10,0],[1951,5,6,0,1951,9,9,0],[1955,5,5,0,1955,9,9,0],[1956,5,20,0,1956,9,30,0],[1957,5,5,0,1957,9,22,0],[1958,5,4,0,1958,9,21,0],[1959,5,3,0,1959,9,20,0],[1960,5,1,0,1960,9,18,0],[1987,5,10,2,1987,10,11,3],[1988,5,8,2,1988,10,9,3]];
+// 127.5°(동경127도30분) 표준시 시대: 1954-03-21~1961-08-10 UTC+8:30
+const ERA_1275_START=Date.UTC(1954,2,21,0,0),ERA_1275_END=Date.UTC(1961,7,10,0,0);
+// 벽시계(KST)→UTC+9 정규화 이동량(분). 서머타임 -60, 127.5°시대 +30 (중첩시 순 -30). 판정은 원본 벽시계 기준.
+function civilOffsetMin(y,m,d,h,mn){const t=Date.UTC(y,m-1,d,h,mn||0);let off=0;if(t>=ERA_1275_START&&t<ERA_1275_END)off+=30;for(const w of DST_WINDOWS){if(t>=Date.UTC(w[0],w[1]-1,w[2],w[3],0)&&t<Date.UTC(w[4],w[5]-1,w[6],w[7],0)){off-=60;break;}}return off;}
+// 벽시계 출생시각→동경135° 표준시 정규화. h===null이면 시각 정규화 스킵(날짜 원본 유지).
+function normalizeKST(y,m,d,h,mn){if(h===null||h===undefined)return{y,m,d,h:h===undefined?null:h,mn:mn||0};const off=civilOffsetMin(y,m,d,h,mn);const t=new Date(Date.UTC(y,m-1,d,h,mn||0)+off*60000);return{y:t.getUTCFullYear(),m:t.getUTCMonth()+1,d:t.getUTCDate(),h:t.getUTCHours(),mn:t.getUTCMinutes()};}
+// 양력 날짜 유효성(2월31일 등 차단)
+function assertValidDate(y,m,d){if(!Number.isInteger(y)||!Number.isInteger(m)||!Number.isInteger(d))throw new Error("올바른 날짜를 입력해주세요.");const t=new Date(Date.UTC(y,m-1,d));if(t.getUTCFullYear()!==y||t.getUTCMonth()+1!==m||t.getUTCDate()!==d)throw new Error("존재하지 않는 날짜입니다.");}
+// 지원 범위: 원본/정규화 연도 중 하나라도 1920~2060 밖이면 거부
+function assertSupportedRange(rawY,normY){if(rawY<1920||rawY>2060||normY<1920||normY>2060)throw new Error("지원 범위(1920~2060) 밖의 생년월일입니다.");}
+// 음력 유효성: 테이블 범위/월1~12/일이 해당월 길이 이내/윤달플래그는 실제 윤달일 때만
+function assertValidLunarDate(ly,lm,ld,isLeap){if(!Number.isInteger(ly)||!Number.isInteger(lm)||!Number.isInteger(ld))throw new Error("올바른 음력 날짜를 입력해주세요.");if(ly<1900||ly>2100||LD[ly-1900]===undefined)throw new Error("지원 범위 밖의 음력 연도입니다.");if(lm<1||lm>12)throw new Error("음력 월은 1~12 사이여야 합니다.");const yd=LD[ly-1900],leapM=yd&0xf;if(isLeap&&leapM!==lm)throw new Error("해당 연도의 "+lm+"월은 윤달이 아닙니다.");let days;if(isLeap)days=(yd&0x10000)?30:29;else days=(yd&(0x8000>>(lm-1)))?30:29;if(ld<1||ld>days)throw new Error("음력 "+lm+"월은 "+days+"일까지입니다.");}
+// 공유 진입점: 폼→사주 원국. 두 호출부 공통. 예외는 호출부에서 alert 처리.
+function computeSajuFromForm(form){let y=parseInt(form.year),m=parseInt(form.month),d=parseInt(form.day);if(!y||!m||!d)throw new Error("생년월일을 입력해주세요!");const h=(!form.hourUnknown&&form.hour!==""&&form.hour!=null)?parseInt(form.hour):null;const mn=(!form.hourUnknown&&form.minute!==""&&form.minute!=null)?parseInt(form.minute):0;if(h!==null&&(!Number.isInteger(h)||h<0||h>23))throw new Error("시(時)는 0~23 사이여야 합니다.");if(!Number.isInteger(mn)||mn<0||mn>59)throw new Error("분(分)은 0~59 사이여야 합니다.");if(form.calendar==="lunar"){assertValidLunarDate(y,m,d,!!form.isLeapMonth);const s=lunarToSolar(y,m,d,!!form.isLeapMonth);y=s.year;m=s.month;d=s.day;}assertValidDate(y,m,d);const rawY=y;let ny=y,nm=m,nd=d,nh=h,nmn=mn;if(h!==null){const n=normalizeKST(y,m,d,h,mn);ny=n.y;nm=n.m;nd=n.d;nh=n.h;nmn=n.mn;}assertSupportedRange(rawY,ny);return calcSaju(ny,nm,nd,nh,nmn);}
 
 // ══ 십성(Ten Gods) 판정 ══
 const JIJI_BONGI=[9,5,0,1,4,2,3,5,6,7,4,8]; // 자→계,축→기,인→갑,묘→을,진→무,사→병,오→정,미→기,신→경,유→신,술→무,해→임
@@ -804,7 +822,7 @@ function buildSajuContext(saju,form){
   const gIdx=((nY-4)%10+10)%10,jIdx=((nY-4)%12+12)%12;
   const todayInfo="오늘 날짜: "+nY+"년 "+nM+"월 "+nD+"일 ("+CHEONGAN[gIdx]+JIJI[jIdx]+"년)";
   const sipsungCtx=buildSipsungContext(saju);
-  return "【현재 시점】\n"+todayInfo+"\n\n【고객 정보】\n이름: "+(form.name||"고객")+"\n성별: "+gender+"\n생년월일시: "+birth+" ("+(form.calendar==="lunar"?(form.isLeapMonth?"음력 윤달":"음력"):"양력")+")\n직업/상황: "+(form.situation||"미입력")+"\n결혼: "+form.marriage+" / 연애: "+form.relationship+"\n\n【사주 원국 (진태양시 보정 적용)】\n"+pillarStr+"\n일간(日干): "+saju.day.gan+" ("+saju.ilgan+")\n한자 표기: "+saju.hanja+"\n\n【오행 분포】\n"+ohStr+"\n\n"+sipsungCtx;
+  return "【현재 시점】\n"+todayInfo+"\n\n【고객 정보】\n이름: "+(form.name||"고객")+"\n성별: "+gender+"\n생년월일시: "+birth+" ("+(form.calendar==="lunar"?(form.isLeapMonth?"음력 윤달":"음력"):"양력")+")\n직업/상황: "+(form.situation||"미입력")+"\n결혼: "+form.marriage+" / 연애: "+form.relationship+"\n\n【사주 원국 (표준시 기준)】\n"+pillarStr+"\n일간(日干): "+saju.day.gan+" ("+saju.ilgan+")\n한자 표기: "+saju.hanja+"\n\n【오행 분포】\n"+ohStr+"\n\n"+sipsungCtx;
 }
 
 function buildPreviousContentContext(cfg, currentSecIdx, currentSubIdx){
@@ -988,12 +1006,9 @@ function Admin({currentUser,onLogout}){
   },[config]);
 
   const startGenerate=async()=>{
-    let y=parseInt(form.year),m=parseInt(form.month),d=parseInt(form.day);
-    if(!y||!m||!d){alert("생년월일을 입력해주세요!");return;}
-    const h=(!form.hourUnknown&&form.hour!=="")?parseInt(form.hour):null;
-    const mn=(!form.hourUnknown&&form.minute!=="")?parseInt(form.minute):0;
-    if(form.calendar==="lunar"){const s=lunarToSolar(y,m,d,form.isLeapMonth);y=s.year;m=s.month;d=s.day;}
-    const sajuR=calcSaju(y,m,d,h,mn);
+    let sajuR;
+    try{sajuR=computeSajuFromForm(form);}
+    catch(e){setSaju(null);alert(e.message);return;}
     const rid=genReportId();setReportId(rid);
     setSaju(sajuR);setStep(1);setProgress(0);setGenIdx(0);
 
@@ -1103,7 +1118,7 @@ function Admin({currentUser,onLogout}){
               <input type="number" placeholder="5" value={form.month} onChange={e=>uf("month",e.target.value)} style={{...inputStyle,flex:1}}/><span style={{alignSelf:"center",color:C.light,fontSize:12}}>월</span>
               <input type="number" placeholder="15" value={form.day} onChange={e=>uf("day",e.target.value)} style={{...inputStyle,flex:1}}/><span style={{alignSelf:"center",color:C.light,fontSize:12}}>일</span>
             </div>
-            <div style={{fontSize:12,fontWeight:600,marginBottom:5}}>출생 시간 <span style={{fontSize:10,color:C.light,fontWeight:400}}>(진태양시 자동 보정)</span></div>
+            <div style={{fontSize:12,fontWeight:600,marginBottom:5}}>출생 시간 <span style={{fontSize:10,color:C.light,fontWeight:400}}>(표준시 기준)</span></div>
             <div style={{display:"flex",gap:8,marginBottom:8}}>
             <select value={form.hour} onChange={e=>uf("hour",e.target.value)} style={{...inputStyle,flex:1,opacity:form.hourUnknown?0.4:1}} disabled={form.hourUnknown}>
               <option value="">선택</option>{Array.from({length:24},(_,i)=><option key={i} value={i}>{String(i).padStart(2,"0")}시</option>)}
@@ -1122,16 +1137,12 @@ function Admin({currentUser,onLogout}){
           {/* 사주 미리보기 */}
           <div style={{textAlign:"center",marginTop:14}}>
             <button onClick={()=>{
-              let y=parseInt(form.year),m=parseInt(form.month),d=parseInt(form.day);
-              if(!y||!m||!d){alert("생년월일을 입력해주세요!");return;}
-              const h=(!form.hourUnknown&&form.hour!=="")?parseInt(form.hour):null;
-              const mn=(!form.hourUnknown&&form.minute!=="")?parseInt(form.minute):0;
-              if(form.calendar==="lunar"){const s=lunarToSolar(y,m,d,form.isLeapMonth);y=s.year;m=s.month;d=s.day;}
-              setSaju(calcSaju(y,m,d,h,mn));
+              try{setSaju(computeSajuFromForm(form));}
+              catch(e){setSaju(null);alert(e.message);}
             }} style={{...btnP,padding:"10px 28px",fontSize:13}}>🔍 사주 원국 확인</button>
           </div>
           {saju&&step===0&&(<div style={{marginTop:14,background:C.card,border:`1px solid ${C.border}`,borderRadius:14,padding:20}}>
-            <div style={{fontSize:14,fontWeight:800,color:C.primaryDk,marginBottom:14,textAlign:"center"}}>사주 원국 (진태양시 보정)</div>
+            <div style={{fontSize:14,fontWeight:800,color:C.primaryDk,marginBottom:14,textAlign:"center"}}>사주 원국 (표준시 기준)</div>
             <div style={{display:"flex",justifyContent:"center",gap:16,marginBottom:18}}>
               {[saju.hour,saju.day,saju.month,saju.year].map((p,i)=>{
                 const labels=["시주","일주","월주","연주"];
